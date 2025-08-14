@@ -350,7 +350,7 @@ if (fs.existsSync(apiFolder)) {
     });
     console.log(chalk.bgHex("#90EE90").hex("#333").bold(` Total Route API Dimuat: ${totalRoutes} `));
 }
-
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 // --- Rute Halaman Statis ---
 app.get("/user/login", (req, res) => res.sendFile(path.join(__dirname, "ui", "user", "login.html")));
 app.get("/user/register", (req, res) => res.sendFile(path.join(__dirname, "ui", "user", "register.html")));
