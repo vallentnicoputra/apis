@@ -27,7 +27,7 @@ const DEFAULT_LIMIT_PREMIUM = 1000;
 
 // 1. TAMBAHKAN DUA BARIS INI DI BAWAH const User = require("./models/User");
 
-const User = require("./models/User");
+const User = require("./models/user");
 // --- BARIS BARU: Memuat data endpoint untuk validasi ---
 const endpointsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'api', 'endpoints.json'), 'utf-8'));
 const allApiPaths = Object.values(endpointsData).flat();
