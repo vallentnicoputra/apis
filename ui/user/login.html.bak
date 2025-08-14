@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Maslent API Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(225, 234, 250) 0%, rgb(250, 245, 245) 90.1%);--light-text-primary: #1a202c;--light-text-secondary: #4a5568;--light-glass-bg: rgba(255, 255, 255, 0.6);--light-glass-border: rgba(255, 255, 255, 0.9);--light-shadow: 0 8px 32px 0 rgba(131, 138, 157, 0.2);--light-primary-accent: #4f46e5;--light-primary-accent-light: #eef2ff;--border-radius-lg: 24px;--border-radius-sm: 12px; --success-color: #22c55e; --error-color: #ef4444; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-bg-gradient); color: var(--light-text-primary); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; margin:0; }
+    .login-card { width: 100%; max-width: 420px; padding: 2.5rem; background: var(--light-glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--light-glass-border); box-shadow: var(--light-shadow); border-radius: var(--border-radius-lg); text-align: center; animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .login-header .logo { font-size: 2.5rem; color: var(--light-primary-accent); margin-bottom: 1rem; }
+    .login-header h1 { font-size: 1.8rem; font-weight: 700; margin: 0 0 0.5rem 0; }
+    .login-header p { color: var(--light-text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .message { height: 20px; font-weight: 500; margin-bottom: 1rem; }
+    .message.success { color: var(--success-color); }
+    .message.error { color: var(--error-color); }
+    .input-group { position: relative; margin-bottom: 1rem; }
+    .input-field { width: 100%; padding: 14px 18px 14px 45px; border: 1px solid #e2e8f0; border-radius: var(--border-radius-sm); font-size: 1rem; background-color: var(--light-primary-accent-light); box-sizing: border-box; }
+    .input-field:focus { outline: none; border-color: var(--light-primary-accent); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+    .input-group i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--light-text-secondary); }
+    .extra-options { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; font-size: 0.85rem; }
+    .extra-options a { color: var(--light-text-secondary); text-decoration: none; font-weight: 500; }
+    .extra-options a:hover { color: var(--light-primary-accent); }
+    .btn-login { width: 100%; padding: 15px; border: none; border-radius: var(--border-radius-sm); background: var(--light-primary-accent); color: white; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 1.5rem; }
+    .btn-login:disabled { background-color: #a5b4fc; cursor: not-allowed; }
+    .footer-text { margin-top: 2rem; font-size: 0.85rem; }
+    .footer-text a { color: var(--light-primary-accent); font-weight: 600; text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="login-card">
+    <div class="login-header">
+        <span class="logo"><i class="fas fa-rocket"></i></span>
+        <h1>Masuk ke Akun Anda</h1>
+        <p>Selamat datang kembali! Silakan masukkan detail Anda.</p>
+    </div>
+    <form id="loginForm" class="login-form">
+        <div id="message" class="message"></div>
+        <div class="input-group">
+            <input type="text" id="identifier" class="input-field" placeholder="Nama Pengguna atau Email" required>
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" class="input-field" placeholder="Kata Sandi" required>
+            <i class="fas fa-lock"></i>
+        </div>
+        <div class="extra-options">
+            <label><input type="checkbox" name="remember"> Ingat saya</label>
+            <a href="/user/forgotpassword">Lupa Password?</a>
+        </div>
+        <button type="submit" id="submitButton" class="btn-login">Masuk</button>
+    </form>
+    <p class="footer-text">
+        Belum punya akun? <a href="/user/register">Daftar sekarang</a>
+    </p>
+</div>
+
+<script>
+    const form = document.getElementById('loginForm');
+    const messageDiv = document.getElementById('message');
+    const submitButton = document.getElementById('submitButton');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        messageDiv.textContent = '';
+        messageDiv.className = 'message';
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Masuk...';
+
+        const identifier = document.getElementById('identifier').value;
+        const password = document.getElementById('password').value;
+
+        const serverAddress = 'localhost';
+        const apiUrl = `http://${serverAddress}:3000/auth/login`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identifier, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                messageDiv.textContent = 'Login berhasil! Mengarahkan...';
+                messageDiv.classList.add('success');
+                localStorage.setItem('apiKey', data.result.apiKey);
+                setTimeout(() => {
+                    window.location.href = '/docs';
+                }, 1000);
+            } else {
+                messageDiv.textContent = data.message || 'Terjadi kesalahan.';
+                messageDiv.classList.add('error');
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Masuk';
+            }
+        } catch (error) {
+            console.error("Fetch Error:", error);
+            messageDiv.textContent = 'Tidak dapat terhubung ke server. Periksa alamat IP dan pastikan server berjalan.';
+            messageDiv.classList.add('error');
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Masuk';
+        }
+    });
+</script>
+</body>
+</html>

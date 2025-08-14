@@ -1,0 +1,95 @@
+const axios = require("axios");
+const cheerio = require("cheerio");
+const { checkApiKeyAndLimit } = require("../../middleware");
+
+class DownloaderScraper {
+  constructor() {
+    // Proxy base URL sesuai requestmu
+    this.proxyBaseUrl = "http://localhost:3000/tools/ex?url=&format=text&textOnly=false&ignoreLinks=false&apikey=maslent123";
+    this.headers = {
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+    };
+  }
+
+  async search({ query, order }) {
+    try {
+      const targetUrl = `https://www.erome.com/search?q=${encodeURIComponent(query)}${order ? `&o=${encodeURIComponent(order)}` : ""}`;
+      const proxyRequestUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(targetUrl)}`);
+      const { data: html } = await axios.get(proxyRequestUrl, { headers: this.headers });
+      const $ = cheerio.load(html);
+
+      const albums = $(".album").map((i, el) => ({
+        title: $(el).find(".album-title").text().trim(),
+        url: $(el).find(".album-title").attr("href"),
+        user: $(el).find(".album-user").text().trim(),
+        thumbnail: $(el).find(".album-thumbnail").data("src"),
+        views: $(el).find(".album-bottom-views").text().trim()
+      })).get();
+
+      return albums.length ? albums : { message: "No albums found for the query" };
+    } catch (error) {
+      console.error("Downloader Search Error:", error.message);
+      return { status: false, error: error.message || error };
+    }
+  }
+
+  async detail({ url }) {
+    try {
+      const proxyRequestUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(url)}`);
+      const { data: html } = await axios.get(proxyRequestUrl, { headers: this.headers });
+      const $ = cheerio.load(html);
+
+      return {
+        title: $("h1").text().trim() || "No Title",
+        user: {
+          name: $(".user-info #user_name").text().trim() || "Unknown User",
+          avatar: $(".user-info #user_icon img").attr("src") || "default-avatar.png"
+        },
+        username: $("#user_name").text().trim(),
+        userProfileImage: $("#user_icon img").attr("src"),
+        userProfileLink: $("#user_name").attr("href"),
+        videoCount: $(".album-videos").text().trim(),
+        views: $(".fa-eye").parent().text().trim(),
+        likes: $(".fa-heart").next("b").text().trim(),
+        reposts: $(".album-repost b").text().trim(),
+        videoUrl: $("video source").attr("src"),
+        tags: $("p.mt-10 a").map((i, el) => $(el).text().trim()).get(),
+        media: $(".media-group").map((i, el) => ({
+          img: $(el).find(".img").data("src") || null,
+          video: $(el).find("video source").attr("src") || null,
+          caption: $(el).find("img").attr("alt") || "No Text"
+        })).get()
+      };
+    } catch (error) {
+      console.error("Downloader Detail Error:", error.message);
+      return { status: false, error: error.message || error };
+    }
+  }
+};
+
+module.exports = (app) => {
+  const scraper = new DownloaderScraper();
+
+  app.get("/nsfw/erome/search", checkApiKeyAndLimit, async (req, res) => {
+    const { q, order } = req.query;
+    if (!q) return res.status(400).json({ status: false, message: "Parameter 'q' wajib diisi" });
+    try {
+      const data = await scraper.search({ query: q, order });
+      res.json({ status: true, total: data.length, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+
+  app.get("/nsfw/erome/detail", checkApiKeyAndLimit, async (req, res) => {
+    const { url } = req.query;
+    if (!url) return res.status(400).json({ status: false, message: "Parameter 'url' wajib diisi" });
+    try {
+      const data = await scraper.detail({ url });
+      res.json({ status: true, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+};

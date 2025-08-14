@@ -1,0 +1,109 @@
+const axios = require("axios");
+const cheerio = require("cheerio");
+const { checkApiKeyAndLimit } = require("../../middleware");
+
+class XHamsterScraper {
+  constructor() {
+    this.proxyBaseUrl = "http://localhost:3000/tools/ex?url=&format=text&textOnly=false&ignoreLinks=false&apikey=maslent123";
+    this.baseUrl = "https://id.xhamster.com";
+    this.headers = {
+      "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36"
+    };
+  }
+
+  async search({ query }) {
+    try {
+      const searchUrl = `${this.baseUrl}/search/${encodeURIComponent(query)}?q=${encodeURIComponent(query)}`;
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(searchUrl)}`);
+      const { data: html } = await axios.get(proxyUrl, { headers: this.headers });
+      const $ = cheerio.load(html);
+
+      const results = [];
+      $(".thumb-list__item.video-thumb").each((i, el) => {
+        const $el = $(el);
+        const title = $el.find(".video-thumb-info__name").text().trim() || "Tidak ada judul";
+        const url = $el.find(".video-thumb__image-container").attr("href") || "Tidak ada URL";
+        const thumbnail = $el.find(".thumb-image-container__image").attr("src") || "Tidak ada thumbnail";
+        const duration = $el.find(".thumb-image-container__duration .tiny-8643e").text().trim() || "Durasi tidak diketahui";
+        const uploader = $el.find(".video-uploader-data a").text().trim() || "Anonim";
+        if (title && url) results.push({ title, url, thumbnail, duration, uploader });
+      });
+
+      return results.length ? results : [{ message: "Tidak ada hasil ditemukan" }];
+    } catch (err) {
+      console.error("XHamster Search Error:", err.message);
+      return [{ error: err.message || "Terjadi kesalahan" }];
+    }
+  }
+
+  async detail({ url }) {
+    try {
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(url)}`);
+      const { data: html } = await axios.get(proxyUrl, { headers: this.headers });
+      const $ = cheerio.load(html);
+
+      const title = $('div[data-role="video-title"] h1.title-f2600').text().trim() || "Tidak ada judul";
+      const stats = $('div[data-role="video-title"] p.primary-8643e.icons-a993a span.primary-8643e');
+      const viewCount = stats.eq(0).text().trim() || "Tidak diketahui";
+      const likePercentage = stats.eq(1).text().trim() || "Tidak diketahui";
+
+      const uploaderAnchor = $('nav#video-tags-list-container a[href*="/creators/"]').first();
+      const uploader = uploaderAnchor.length ? {
+        name: uploaderAnchor.find("span.body-bold-8643e.label-5984a").text().trim() || "Tidak diketahui",
+        url: uploaderAnchor.attr("href") || "Tidak ada URL",
+        avatar: uploaderAnchor.find("img.image-9a750").attr("src") || "Tidak ada avatar",
+        subscribers: uploaderAnchor.find("span.sub-button__counter").text().trim() || "0"
+      } : null;
+
+      const tags = [];
+      $("nav#video-tags-list-container a").each((i, el) => {
+        const href = $(el).attr("href") || "";
+        if (!href.includes("/creators/")) {
+          const tag = $(el).find("span.body-8643e.label-5984a.label-96c3e").text().trim() || "Tidak ada tag";
+          if (tag && tag !== "Tidak ada tag") tags.push(tag);
+        }
+      });
+
+      let videoUrl = "";
+      const noscriptContent = $("noscript").html() || "";
+      const match = noscriptContent.match(/<video[^>]+src=['"]([^'"]+)['"]/);
+      videoUrl = match ? match[1] : $("a.player-container__no-player").attr("href") || "Tidak ada link video";
+
+      const preloadDiv = $("div.player-container div.xp-preload-image");
+      const styleAttr = preloadDiv.attr("style") || "";
+      const matchThumb = styleAttr.match(/url\(['"]?(.*?)['"]?\)/);
+      const thumbnail = matchThumb ? matchThumb[1] : "Tidak ada thumbnail";
+
+      return { title, viewCount, likePercentage, uploader, tags, videoUrl, thumbnail };
+    } catch (err) {
+      console.error("XHamster Detail Error:", err.message);
+      return { error: err.message || "Terjadi kesalahan" };
+    }
+  }
+}
+
+module.exports = (app) => {
+  const scraper = new XHamsterScraper();
+
+  app.get("/nsfw/xhamster/search", checkApiKeyAndLimit, async (req, res) => {
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ status: false, message: "Parameter 'q' wajib diisi" });
+    try {
+      const data = await scraper.search({ query: q });
+      res.json({ status: true, total: data.length, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+
+  app.get("/nsfw/xhamster/detail", checkApiKeyAndLimit, async (req, res) => {
+    const { url } = req.query;
+    if (!url) return res.status(400).json({ status: false, message: "Parameter 'url' wajib diisi" });
+    try {
+      const data = await scraper.detail({ url });
+      res.json({ status: true, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+};

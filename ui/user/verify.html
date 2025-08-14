@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verifikasi Akun - Maslent API Services</title>
+  <!-- (Link CSS dan Font tetap sama) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* (Semua CSS dari file verify.html sebelumnya tetap di sini) */
+    :root { --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(225, 234, 250) 0%, rgb(250, 245, 245) 90.1%);--light-text-primary: #1a202c;--light-text-secondary: #4a5568;--light-glass-bg: rgba(255, 255, 255, 0.6);--light-glass-border: rgba(255, 255, 255, 0.9);--light-shadow: 0 8px 32px 0 rgba(131, 138, 157, 0.2);--light-primary-accent: #4f46e5;--light-primary-accent-light: #eef2ff;--border-radius-lg: 24px;--border-radius-sm: 12px;--success-color: #22c55e;--error-color: #ef4444; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-bg-gradient); color: var(--light-text-primary); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; margin:0; }
+    .verify-card { width: 100%; max-width: 480px; padding: 2.5rem; background: var(--light-glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--light-glass-border); box-shadow: var(--light-shadow); border-radius: var(--border-radius-lg); text-align: center; animation: fadeIn 0.5s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .verify-header .logo { font-size: 3rem; color: var(--light-primary-accent); margin-bottom: 1rem; }
+    .verify-header h1 { font-size: 1.8rem; font-weight: 700; margin: 0 0 0.5rem 0; }
+    .verify-header p { color: var(--light-text-secondary); font-size: 0.95rem; max-width: 350px; margin: 0 auto; margin-bottom: 2rem; }
+    .verify-header p strong { color: var(--light-text-primary); font-weight: 600; }
+    .otp-inputs { display: flex; justify-content: center; gap: 10px; }
+    .otp-input { width: 50px; height: 55px; text-align: center; font-size: 1.5rem; font-weight: 600; border-radius: var(--border-radius-sm); border: 1px solid #e2e8f0; background-color: var(--light-primary-accent-light); }
+    .otp-input:focus { outline: none; border-color: var(--light-primary-accent); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+    .btn-verify { width: 100%; padding: 15px; border: none; border-radius: var(--border-radius-sm); background: var(--light-primary-accent); color: white; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 1.5rem; }
+    .btn-verify:disabled { background-color: #a5b4fc; cursor: not-allowed; }
+    .message { height: 20px; font-weight: 500; margin-top: 1rem; }
+    .message.success { color: var(--success-color); }
+    .message.error { color: var(--error-color); }
+    .footer-text { margin-top: 1.5rem; font-size: 0.9rem; color: var(--light-text-secondary); }
+    .footer-text a { color: var(--light-primary-accent); font-weight: 600; text-decoration: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="verify-card">
+    <div class="verify-header">
+      <span class="logo"><i class="fas fa-envelope-circle-check"></i></span>
+      <h1>Verifikasi Email Anda</h1>
+      <p>Masukkan kode 6 digit yang telah kami kirimkan ke <strong id="user-email">emailanda@contoh.com</strong>.</p>
+    </div>
+    <form id="verifyForm">
+      <div class="otp-inputs" id="otpContainer">
+        <!-- Input OTP akan dibuat oleh JS -->
+      </div>
+      <div id="message" class="message"></div>
+      <button type="submit" class="btn-verify" id="verifyButton" disabled>Verifikasi Akun</button>
+    </form>
+    <!-- (Footer text untuk kirim ulang tetap di sini) -->
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const otpContainer = document.getElementById('otpContainer');
+    const verifyButton = document.getElementById('verifyButton');
+    const messageDiv = document.getElementById('message');
+    const userEmailSpan = document.getElementById('user-email');
+
+    // Ambil data dari localStorage
+    const userId = localStorage.getItem('userIdForVerification');
+    const userEmail = localStorage.getItem('userEmailForVerification');
+
+    if (!userId || !userEmail) {
+        // Jika tidak ada data, arahkan kembali ke halaman registrasi
+        window.location.href = '/user/register';
+        return;
+    }
+    userEmailSpan.textContent = userEmail;
+
+    // Buat 6 input OTP
+    for (let i = 0; i < 6; i++) {
+        const input = document.createElement('input');
+        input.type = 'text'; // Gunakan text untuk input lebih fleksibel
+        input.maxLength = 1;
+        input.className = 'otp-input';
+        input.dataset.index = i;
+        otpContainer.appendChild(input);
+    }
+    const inputs = [...otpContainer.querySelectorAll('.otp-input')];
+
+    // Logika navigasi input OTP
+    otpContainer.addEventListener('input', (e) => {
+        const target = e.target;
+        const value = target.value;
+        if (value) {
+            const next = target.nextElementSibling;
+            if (next) next.focus();
+        }
+        verifyButton.disabled = inputs.some(input => !input.value);
+    });
+    otpContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value) {
+            const prev = e.target.previousElementSibling;
+            if (prev) prev.focus();
+        }
+    });
+
+    // Kirim data verifikasi
+    document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const otp = inputs.map(input => input.value).join('');
+        messageDiv.textContent = '';
+        verifyButton.disabled = true;
+        verifyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memverifikasi...';
+
+        try {
+            const response = await fetch('/auth/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, otp })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                messageDiv.textContent = 'Verifikasi berhasil! Mengarahkan ke dasbor...';
+                messageDiv.classList.add('success');
+                // Simpan API Key dan hapus data sementara
+                localStorage.setItem('apiKey', data.result.apiKey);
+                localStorage.removeItem('userIdForVerification');
+                localStorage.removeItem('userEmailForVerification');
+                setTimeout(() => {
+                    window.location.href = '/docs';
+                }, 1500);
+            } else {
+                messageDiv.textContent = data.message || 'Terjadi kesalahan.';
+                messageDiv.classList.add('error');
+                verifyButton.disabled = false;
+                verifyButton.innerHTML = 'Verifikasi Akun';
+            }
+        } catch (error) {
+            messageDiv.textContent = 'Tidak dapat terhubung ke server.';
+            messageDiv.classList.add('error');
+            verifyButton.disabled = false;
+            verifyButton.innerHTML = 'Verifikasi Akun';
+        }
+    });
+});
+</script>
+</body>
+</html>

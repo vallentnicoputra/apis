@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar - Maslent API Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(225, 234, 250) 0%, rgb(250, 245, 245) 90.1%);
+      --light-text-primary: #1a202c;
+      --light-text-secondary: #4a5568;
+      --light-glass-bg: rgba(255, 255, 255, 0.7);
+      --light-glass-border: rgba(255, 255, 255, 0.9);
+      --light-shadow: 0 8px 32px 0 rgba(131, 138, 157, 0.2);
+      --light-primary-accent: #4f46e5;
+      --light-primary-accent-light: #f0f2ff;
+      --border-radius-lg: 24px;
+      --border-radius-sm: 12px;
+      --error-color: #ef4444;
+      --success-color: #10b981;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg-gradient);
+      color: var(--light-text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+      margin: 0;
+    }
+    .register-card {
+      width: 100%;
+      max-width: 440px;
+      padding: 2rem 2.5rem;
+      background: var(--light-glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--light-glass-border);
+      box-shadow: var(--light-shadow);
+      border-radius: var(--border-radius-lg);
+      text-align: center;
+      animation: fadeIn 0.5s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .register-header .logo { font-size: 2.5rem; color: var(--light-primary-accent); margin-bottom: 1rem; }
+    .register-header h1 { font-size: 1.8rem; font-weight: 700; margin: 0 0 0.5rem 0; }
+    .register-header p { color: var(--light-text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .register-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .input-group { position: relative; text-align: left; }
+    .input-field {
+      width: 100%;
+      padding: 14px 18px 14px 45px;
+      border: 1px solid #dcdfe6;
+      border-radius: var(--border-radius-sm);
+      font-size: 0.95rem;
+      background-color: var(--light-primary-accent-light);
+      box-sizing: border-box;
+      transition: all 0.2s ease;
+    }
+    .input-field:focus { outline: none; border-color: var(--light-primary-accent); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); }
+    .input-group i { position: absolute; left: 18px; top: 16px; color: var(--light-text-secondary); }
+    .validation-message {
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+        text-align: left;
+        padding-left: 5px;
+        font-weight: 500;
+        min-height: 1.2em; /* Reserve space to prevent layout shift */
+    }
+    .message-error { color: var(--error-color); }
+    .message-success { color: var(--success-color); }
+
+    .tos-group { display: flex; align-items: center; gap: 0.75rem; margin-top: -0.5rem; }
+    .tos-group label { color: var(--light-text-secondary); font-size: 0.9rem; }
+    .tos-group a { color: var(--light-primary-accent); font-weight: 500; cursor: pointer; text-decoration: underline; }
+    #tos-check { accent-color: var(--light-primary-accent); }
+
+    .btn-register { width: 100%; padding: 15px; border: none; border-radius: var(--border-radius-sm); background: var(--light-primary-accent); color: white; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+    .btn-register:disabled { background-color: #a5b4fc; cursor: not-allowed; opacity: 0.7; }
+    
+    #form-message { min-height: 20px; font-weight: 500; margin-bottom: 1rem; color: var(--error-color); }
+    .footer-text { margin-top: 2rem; font-size: 0.85rem; }
+    .footer-text a { color: var(--light-primary-accent); font-weight: 600; text-decoration: none; }
+
+    /* Modal Styling */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; padding: 1rem; }
+    .modal-overlay.show { opacity: 1; visibility: visible; }
+    .modal-content { background: white; padding: 2rem; border-radius: var(--border-radius-lg); max-width: 500px; width: 100%; box-shadow: var(--light-shadow); transform: scale(0.95); transition: transform 0.3s ease; }
+    .modal-overlay.show .modal-content { transform: scale(1); }
+    .modal-content h2 { font-weight: 700; font-size: 1.5rem; margin-top: 0; margin-bottom: 1rem; }
+    .modal-body { max-height: 60vh; overflow-y: auto; font-size: 0.95rem; color: var(--light-text-secondary); line-height: 1.6; margin-bottom: 1.5rem; }
+    .modal-body p { margin-bottom: 1rem; }
+    .modal-actions { display: flex; flex-direction: column; gap: 0.75rem; sm:flex-direction: row; }
+    .modal-btn { flex-grow: 1; padding: 12px; border: none; border-radius: var(--border-radius-sm); font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease; }
+    .btn-agree { background-color: var(--light-primary-accent); color: white; }
+    .btn-disagree { background-color: #e2e8f0; color: var(--light-text-secondary); }
+  </style>
+</head>
+<body>
+  <div class="register-card">
+    <div class="register-header">
+      <div class="logo"><i class="fas fa-user-plus"></i></div>
+      <h1>Buat Akun Baru</h1>
+      <p>Mulai perjalanan Anda bersama kami hanya dalam beberapa langkah.</p>
+    </div>
+    <form id="registerForm" class="register-form" novalidate>
+      <div id="form-message" class="message"></div>
+      
+      <div class="input-group">
+        <input type="text" id="username" class="input-field" placeholder="Nama Pengguna" required>
+        <i class="fas fa-user"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="email" class="input-field" placeholder="Alamat Email (@gmail / @yahoo)" required>
+        <i class="fas fa-envelope"></i>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" class="input-field" placeholder="Buat Kata Sandi" required>
+        <i class="fas fa-lock"></i>
+        <p id="password-message" class="validation-message">Min 8 karakter, dengan huruf besar, kecil, angka & simbol.</p>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="confirm-password" class="input-field" placeholder="Konfirmasi Kata Sandi" required>
+        <i class="fas fa-check-double"></i>
+        <p id="confirm-password-message" class="validation-message"></p>
+      </div>
+
+      <div class="tos-group">
+        <input type="checkbox" id="tos-check" required>
+        <label for="tos-check">Saya menyetujui <a id="open-tos-modal">syarat & ketentuan</a>.</label>
+      </div>
+
+      <button type="submit" class="btn-register" id="submitButton" disabled>Buat Akun</button>
+    </form>
+    <p class="footer-text">
+      Sudah punya akun? <a href="/user/login">Masuk di sini</a>
+    </p>
+  </div>
+
+  <!-- Modal untuk Syarat & Ketentuan -->
+  <div id="tos-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Aturan Main API Key</h2>
+      <div class="modal-body">
+        <p>Santai, ini bukan dokumen hukum yang panjang. Cuma beberapa poin penting biar kita sama-sama enak:</p>
+        <p><strong>1. Jaga Baik-Baik:</strong> API Key ini rahasia dan punyamu seorang. Jangan dibagikan, apalagi dijual. Kalau ketahuan dipakai orang lain, terpaksa kami nonaktifkan.</p>
+        <p><strong>2. Gunakan dengan Wajar:</strong> Pakai API kami untuk hal-hal yang positif dan kreatif. Dilarang keras untuk spamming, aktivitas ilegal (judi, SARA, dll), atau hal-hal yang merugikan orang lain.</p>
+        <p><strong>3. Apa Adanya:</strong> Kami berusaha keras agar layanan ini jalan terus 24/7. Tapi, kami tidak bisa jamin 100% akan selalu sempurna tanpa ada gangguan sesekali.</p>
+        <p><strong>4. Bisa Berubah:</strong> Aturan ini mungkin akan kami perbarui di masa depan untuk menyesuaikan kondisi. Perubahan penting pasti akan kami informasikan.</p>
+        <p class="font-semibold text-gray-800 pt-2">Dengan klik "Setuju", kamu kami anggap sudah paham dan sepakat dengan poin-poin di atas. Yuk, berkarya dengan bertanggung jawab!</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="btn-disagree" class="modal-btn btn-disagree">Tidak Setuju</button>
+        <button type="button" id="btn-agree" class="modal-btn btn-agree">Setuju</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Elemen Form & Validasi ---
+    const form = document.getElementById('registerForm');
+    const formMessage = document.getElementById('form-message');
+    const submitButton = document.getElementById('submitButton');
+    
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const tosCheck = document.getElementById('tos-check');
+
+    const passwordMessage = document.getElementById('password-message');
+    const confirmPasswordMessage = document.getElementById('confirm-password-message');
+
+    // --- Elemen Modal ---
+    const openModalLink = document.getElementById('open-tos-modal');
+    const modal = document.getElementById('tos-modal');
+    const agreeButton = document.getElementById('btn-agree');
+    const disagreeButton = document.getElementById('btn-disagree');
+
+    const validations = {
+        isUsernameValid: false,
+        isEmailValid: false,
+        isPasswordValid: false,
+        isConfirmPasswordValid: false,
+        isTosChecked: false,
+    };
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const allowedDomains = ['@gmail.com', '@yahoo.com'];
+
+    const validateForm = () => {
+        const allValid = Object.values(validations).every(Boolean);
+        submitButton.disabled = !allValid;
+    };
+
+    const updateValidationMessage = (element, message, isValid) => {
+        element.textContent = message;
+        element.className = 'validation-message'; // Reset class
+        if (message) {
+            element.classList.add(isValid ? 'message-success' : 'message-error');
+        }
+    };
+
+    // --- Validasi Real-time ---
+    usernameInput.addEventListener('input', () => {
+        validations.isUsernameValid = usernameInput.value.length >= 3;
+        validateForm();
+    });
+
+    emailInput.addEventListener('input', () => {
+        const emailValue = emailInput.value.toLowerCase();
+        const emailDomain = emailValue.substring(emailValue.lastIndexOf('@'));
+        validations.isEmailValid = emailValue.lastIndexOf('@') > 0 && allowedDomains.includes(emailDomain);
+        validateForm();
+    });
+
+    passwordInput.addEventListener('input', () => {
+        const password = passwordInput.value;
+        validations.isPasswordValid = passwordRegex.test(password);
+        updateValidationMessage(passwordMessage, validations.isPasswordValid ? 'Password kuat!' : 'Password tidak memenuhi syarat.', validations.isPasswordValid);
+        
+        // Re-validate confirm password if it has a value
+        if (confirmPasswordInput.value) {
+            validations.isConfirmPasswordValid = password === confirmPasswordInput.value;
+            const msg = validations.isConfirmPasswordValid ? 'Password cocok!' : 'Password tidak cocok.';
+            updateValidationMessage(confirmPasswordMessage, msg, validations.isConfirmPasswordValid);
+        }
+        validateForm();
+    });
+
+    confirmPasswordInput.addEventListener('input', () => {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        validations.isConfirmPasswordValid = password === confirmPassword && validations.isPasswordValid;
+        const msg = validations.isConfirmPasswordValid ? 'Password cocok!' : 'Password tidak cocok.';
+        updateValidationMessage(confirmPasswordMessage, msg, validations.isConfirmPasswordValid);
+        validateForm();
+    });
+
+    tosCheck.addEventListener('change', () => {
+        validations.isTosChecked = tosCheck.checked;
+        validateForm();
+    });
+
+    // --- Logika Modal ---
+    openModalLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.classList.add('show');
+    });
+
+    const closeModal = () => modal.classList.remove('show');
+
+    agreeButton.addEventListener('click', () => {
+        tosCheck.checked = true;
+        validations.isTosChecked = true;
+        validateForm();
+        closeModal();
+    });
+
+    disagreeButton.addEventListener('click', () => {
+        tosCheck.checked = false;
+        validations.isTosChecked = false;
+        validateForm();
+        closeModal();
+    });
+
+    // --- Logika Submit Form ---
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (submitButton.disabled) return;
+
+        formMessage.textContent = '';
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendaftar...';
+
+        try {
+            const response = await fetch('/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: usernameInput.value,
+                    email: emailInput.value,
+                    password: passwordInput.value
+                })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('userIdForVerification', data.result.userId);
+                localStorage.setItem('userEmailForVerification', emailInput.value);
+                window.location.href = '/user/verify';
+            } else {
+                formMessage.textContent = data.message || 'Terjadi kesalahan.';
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Buat Akun';
+            }
+        } catch (error) {
+            formMessage.textContent = 'Tidak dapat terhubung ke server.';
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Buat Akun';
+        }
+    });
+});
+</script>
+</body>
+</html>

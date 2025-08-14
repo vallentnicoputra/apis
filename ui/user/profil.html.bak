@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil & Informasi - Maslent API Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(240, 244, 250) 0%, rgb(250, 248, 248) 90.1%);
+      --light-text-primary: #1a202c;
+      --light-text-secondary: #4a5568;
+      --light-glass-bg: rgba(255, 255, 255, 0.8);
+      --light-glass-border: rgba(255, 255, 255, 1);
+      --light-shadow: 0 8px 32px 0 rgba(131, 138, 157, 0.2);
+      --light-primary-accent: #4f46e5;
+      --light-primary-accent-light: #eef2ff;
+      --border-radius-md: 20px;
+      --border-radius-sm: 12px;
+      --success-color: #22c55e;
+      --error-color: #ef4444;
+      --premium-gold: #f59e0b;
+      --basic-blue: #3b82f6;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg-gradient);
+      color: var(--light-text-primary);
+      margin: 0;
+      padding: 1rem 1rem 3rem 1rem;
+      animation: fadeIn 0.5s ease-out;
+      line-height: 1.7;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .container { max-width: 800px; margin: 0 auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .header h1 { font-size: 1.8rem; sm:font-size: 2rem; font-weight: 700; }
+    .btn-header { background: var(--light-primary-accent-light); color: var(--light-primary-accent); border: none; padding: 0.6rem 1.2rem; border-radius: var(--border-radius-sm); font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; transition: all 0.2s ease; }
+    .btn-header:hover { background-color: #e0e7ff; transform: translateY(-1px); }
+    .card { background: var(--light-glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--light-glass-border); box-shadow: var(--light-shadow); border-radius: var(--border-radius-md); padding: 1.5rem; sm:padding: 2.5rem; margin-bottom: 1.5rem; }
+    .card h2, .card h3 { font-size: 1.5rem; margin-top: 0; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; }
+    .profile-header { display: flex; flex-direction: column; sm:flex-row; align-items: center; gap: 1.5rem; text-align: center; sm:text-left; }
+    .avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--light-primary-accent); color: white; display: grid; place-items: center; font-size: 2.5rem; font-weight: 700; flex-shrink: 0; }
+    .profile-info h2 { margin: 0; font-size: 1.8rem; border: none; padding: 0; }
+    .profile-info p { margin: 0.25rem 0; color: var(--light-text-secondary); }
+    .plan-badge { display: inline-block; padding: 0.25rem 0.8rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem; }
+    .plan-badge.free { background-color: #e5e7eb; color: #4b5563; }
+    .plan-badge.basic { background-color: #dbeafe; color: #1e40af; }
+    .plan-badge.premium { background-color: #fef3c7; color: #92400e; }
+    .plan-badge .fa-crown { color: var(--premium-gold); }
+    .plan-badge .fa-star { color: var(--basic-blue); }
+    .api-key-wrapper { display: flex; flex-direction: column; sm:flex-row; align-items: stretch; sm:align-items: center; gap: 1rem; background: var(--light-primary-accent-light); padding: 0.75rem 1rem; border-radius: var(--border-radius-sm); }
+    .api-key-wrapper input { flex-grow: 1; font-family: monospace; font-size: 1.1rem; background: transparent; border: none; color: var(--light-text-primary); padding: 0.5rem 0; }
+    .api-key-wrapper input:focus { outline: none; }
+    .btn-copy { background: var(--light-primary-accent); color: white; border: none; padding: 0.7rem 1.2rem; border-radius: var(--border-radius-sm); cursor: pointer; font-weight: 500; transition: background-color 0.2s ease; flex-shrink: 0; }
+    .btn-copy:hover { background-color: #4338ca; }
+    .custom-key-wrapper { display: flex; align-items: center; gap: 1rem; background: var(--light-primary-accent-light); padding: 0.5rem 1rem; border-radius: var(--border-radius-sm); }
+    .custom-key-wrapper.locked { background-color: #f3f4f6; cursor: not-allowed; }
+    .custom-key-wrapper.locked input { color: #9ca3af; }
+    .btn-save { background: var(--premium-gold); color: white; }
+    .btn-save:hover { background-color: #d97706; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; md:grid-template-columns: repeat(3, 1fr); }
+    .plan-card { border: 2px solid transparent; border-radius: var(--border-radius-md); padding: 2rem; background: white; text-align: left; transition: all 0.3s ease; display: flex; flex-direction: column; }
+    .plan-card:hover { transform: translateY(-5px); box-shadow: 0 10px 40px rgba(131, 138, 157, 0.25); }
+    .plan-card.basic { border-color: var(--basic-blue); }
+    .plan-card.premium { border-color: var(--premium-gold); }
+    .plan-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .plan-icon.free { color: #6b7280; }
+    .plan-icon.basic { color: var(--basic-blue); }
+    .plan-icon.premium { color: var(--premium-gold); }
+    .plan-title { font-size: 1.3rem; font-weight: 700; }
+    .plan-price { font-size: 2rem; font-weight: 800; margin: 0.5rem 0; }
+    .plan-price span { font-size: 1rem; font-weight: 500; color: var(--light-text-secondary); }
+    .feature-list { list-style: none; padding: 0; margin: 1.5rem 0; text-align: left; flex-grow: 1; }
+    .feature-list li { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; color: var(--light-text-secondary); }
+    .feature-list .fa-check-circle { color: var(--success-color); }
+    .feature-list .fa-times-circle { color: var(--error-color); }
+    .purchase-actions { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+    .btn-purchase { display: flex; align-items: center; justify-content: center; gap: 0.75rem; text-decoration: none; padding: 0.75rem; border-radius: var(--border-radius-sm); font-weight: 600; color: white; transition: opacity 0.2s ease; }
+    .btn-purchase:hover { opacity: 0.9; }
+    .btn-whatsapp { background-color: #25d366; }
+    .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .message { min-height: 20px; font-weight: 500; margin-top: 1rem; text-align: center; }
+    .message.success { color: var(--success-color); }
+    .message.error { color: var(--error-color); }
+    .skeleton { background-color: #e5e7eb; border-radius: 8px; animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    .changelog-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0; }
+    .changelog-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .changelog-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .changelog-version { background-color: var(--light-primary-accent); color: white; padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; }
+    .changelog-date { color: var(--light-text-secondary); font-size: 0.9rem; }
+    .changelog-body ul { list-style-type: none; padding-left: 0; }
+    .changelog-body li { padding-left: 1.5rem; position: relative; margin-bottom: 0.5rem; }
+    .changelog-body li::before { content: '✓'; color: #22c55e; position: absolute; left: 0; font-weight: bold; }
+    .code-box { background-color: #1e293b; color: #e2e8f0; padding: 1.5rem; border-radius: var(--border-radius-sm); font-family: 'Courier New', Courier, monospace; white-space: pre-wrap; word-wrap: break-word; position: relative; }
+    .btn-code-copy { position: absolute; top: 1rem; right: 1rem; background: #334155; color: #94a3b8; border: none; padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; font-size: 0.8rem; }
+    .info-box { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .info-box img { max-width: 100%; width: 400px; height: auto; border-radius: var(--border-radius-sm); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    .info-box p { background-color: var(--light-primary-accent-light); padding: 1rem; border-radius: var(--border-radius-sm); border-left: 4px solid var(--light-primary-accent); color: var(--light-text-secondary); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Profil & Informasi</h1>
+      <div>
+        <a href="/docs" class="btn-header"><i class="fas fa-book"></i> Docs</a>
+        <a href="#" id="logoutButton" class="btn-header"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+      </div>
+    </header>
+
+    <div class="card profile-header">
+        <div class="avatar skeleton" id="avatar"></div>
+        <div class="profile-info">
+            <h2 id="username" class="skeleton" style="width: 200px; height: 36px;"></h2>
+            <p id="email" class="skeleton" style="width: 250px; height: 20px; margin-top: 8px;"></p>
+            <div id="plan" class="skeleton" style="width: 100px; height: 28px; margin-top: 8px; border-radius: 99px;"></div>
+        </div>
+    </div>
+
+    <div class="card">
+      <h3><i class="fas fa-key"></i> API Key Anda</h3>
+      <div class="api-key-wrapper">
+        <input type="text" id="apiKey" value="Memuat..." readonly class="skeleton">
+        <button class="btn-copy" id="copyButton" disabled><i class="far fa-copy"></i> Salin</button>
+      </div>
+    </div>
+
+    <div class="card" id="customKeySection">
+      <div id="customKeyLocked" style="display: none;">
+        <h3><i class="fas fa-lock" style="color: #9ca3af;"></i> Ubah API Key</h3>
+        <div class="custom-key-wrapper locked">
+          <input type="text" placeholder="Tersedia untuk Pengguna VIP" disabled>
+          <i class="fas fa-crown" style="font-size: 1.2rem; color: var(--premium-gold);"></i>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--light-text-secondary); text-align: center; margin-top: 1rem;">Upgrade ke Basic atau Premium untuk menggunakan fitur ini.</p>
+      </div>
+      <div id="customKeyUnlocked" style="display: none;">
+        <h3><i class="fas fa-star" style="color: var(--premium-gold);"></i> Ubah API Key (Fitur VIP)</h3>
+        <form id="customKeyForm">
+          <div class="custom-key-wrapper">
+            <input type="text" id="newApiKey" placeholder="Masukkan API Key baru Anda (min. 10 karakter)" required>
+            <button type="submit" class="btn-copy btn-save" id="saveKeyButton">Simpan</button>
+          </div>
+          <div id="message" class="message"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-tags"></i> Pilih Paket Terbaikmu</h3>
+        <div class="pricing-grid">
+            <div class="plan-card">
+                <div class="plan-icon free"><i class="fas fa-leaf"></i></div>
+                <h4 class="plan-title">Apikey Free</h4>
+                <div class="plan-price">Gratis</div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> <span>Durasi <strong>Tak Terbatas</strong></span></li>
+                    <li><i class="fas fa-times-circle"></i> <span>Limit <strong>50 / hari</strong></span></li>
+                    <li><i class="fas fa-times-circle"></i> <span>Akses Fitur VIP</span></li>
+                    <li><i class="fas fa-times-circle"></i> <span>Custom API Key</span></li>
+                    <li><i class="fas fa-times-circle"></i> <span>Custom IP Allowed</span></li>
+                </ul>
+            </div>
+            <div class="plan-card basic">
+                <div class="plan-icon basic"><i class="fas fa-star"></i></div>
+                <h4 class="plan-title">Apikey Basic</h4>
+                <div class="plan-price">Rp10.000<span>/bulan</span></div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> <span>Durasi <strong>1 Bulan</strong></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Limit <strong>Tak Terbatas</strong></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Akses Fitur VIP</span></li>
+                    <li><i class="fas fa-times-circle"></i> <span>Custom API Key</span></li>
+                    <li><i class="fas fa-times-circle"></i> <span>Custom IP Allowed</span></li>
+                </ul>
+                <div class="purchase-actions">
+                    <a href="https://wa.me/6285655620413?text=Halo,%20saya%20tertarik%20untuk%20beli%20API%20Key%20Basic." target="_blank" class="btn-purchase btn-whatsapp"><i class="fab fa-whatsapp"></i> Beli via WhatsApp</a>
+                    <a href="https://www.instagram.com/vlntncptr" target="_blank" class="btn-purchase btn-instagram"><i class="fab fa-instagram"></i> Hubungi via Instagram</a>
+                </div>
+            </div>
+            <div class="plan-card premium">
+                <div class="plan-icon premium"><i class="fas fa-crown"></i></div>
+                <h4 class="plan-title">Apikey Premium</h4>
+                <div class="plan-price">Rp20.000<span>/bulan</span></div>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> <span>Durasi <strong>1 Bulan</strong></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Limit <strong>Tak Terbatas</strong></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Akses <strong>Semua Fitur</strong></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span><strong>Custom API Key</strong></span></li>
+                    <li><i class="fas fa-check-circle"></i> <span><strong>Custom IP Allowed</strong></span></li>
+                </ul>
+                 <div class="purchase-actions">
+                    <a href="https://wa.me/6285655620413?text=Halo,%20saya%20tertarik%20untuk%20beli%20API%20Key%20Premium." target="_blank" class="btn-purchase btn-whatsapp"><i class="fab fa-whatsapp"></i> Beli via WhatsApp</a>
+                    <a href="https://www.instagram.com/vlntncptr" target="_blank" class="btn-purchase btn-instagram"><i class="fab fa-instagram"></i> Hubungi via Instagram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="card">
+      <h2><i class="fas fa-history"></i> Changelog</h2>
+      <div class="changelog-item">
+        <div class="changelog-header">
+          <span class="changelog-version">v1.2.0</span>
+          <span class="changelog-date">10 Agustus 2025</span>
+        </div>
+        <div class="changelog-body">
+          <ul>
+            <li>Penambahan sistem login dan API Key berbasis pengguna.</li>
+            <li>Implementasi limit untuk pengguna free dan premium.</li>
+            <li>Reset limit otomatis setiap hari pukul 00:00 WITA.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><i class="fas fa-code"></i> Cara Menggunakan API (cURL)</h2>
+      <p style="margin-bottom: 1.5rem;">Ganti `[path]` dengan endpoint yang Anda tuju dan `[API_KEY_ANDA]` dengan API Key Anda.</p>
+      <div class="code-box">
+        <button class="btn-code-copy" onclick="copyCode(this)">Salin</button>
+        <code id="curl-code">curl -X GET "https://Maslent.site/[path]&apikey=[API_KEY_ANDA]"</code>
+      </div>
+    </section>
+    
+    <section class="card">
+        <h2><i class="fas fa-info-circle"></i> Informasi Penting</h2>
+        <div class="info-box">
+            <img src="https://i.ibb.co/4g8H1KZS/20250810-113316.png" alt="Contoh Respons Kosong">
+            <p><b>Pemberitahuan:</b> Jika Anda melihat kotak respons kosong setelah menekan "Jalankan Permintaan", itu **bukanlah error**. Server sedang memproses hasil menjadi gambar (base64). Mohon tunggu beberapa saat.</p>
+        </div>
+    </section>
+
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const apiKey = localStorage.getItem('apiKey');
+    if (!apiKey) {
+        window.location.href = '/user/login';
+        return;
+    }
+
+    const elements = {
+        avatar: document.getElementById('avatar'),
+        username: document.getElementById('username'),
+        email: document.getElementById('email'),
+        plan: document.getElementById('plan'),
+        apiKey: document.getElementById('apiKey'),
+        copyButton: document.getElementById('copyButton'),
+        logoutButton: document.getElementById('logoutButton'),
+        customKeyLocked: document.getElementById('customKeyLocked'),
+        customKeyUnlocked: document.getElementById('customKeyUnlocked'),
+        customKeyForm: document.getElementById('customKeyForm'),
+        newApiKey: document.getElementById('newApiKey'),
+        saveKeyButton: document.getElementById('saveKeyButton'),
+        message: document.getElementById('message')
+    };
+
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch(`/auth/me?apikey=${apiKey}`);
+            if (!response.ok) throw new Error('Gagal mengambil data pengguna');
+            
+            const data = await response.json();
+            if (data.status) {
+                const user = data.result;
+                
+                Object.values(elements).forEach(el => el.classList?.remove('skeleton'));
+                elements.avatar.textContent = user.username.charAt(0).toUpperCase();
+                elements.username.textContent = user.username;
+                elements.email.textContent = user.email;
+                elements.apiKey.value = user.apiKey;
+                elements.copyButton.disabled = false;
+
+                elements.plan.className = `plan-badge ${user.plan}`;
+                if (user.plan === 'premium' || user.plan === 'basic') {
+                    elements.plan.innerHTML = user.plan === 'premium' ? `<i class="fas fa-crown"></i> Premium` : `<i class="fas fa-star"></i> Basic`;
+                    elements.customKeyUnlocked.style.display = 'block';
+                    elements.customKeyLocked.style.display = 'none';
+                } else {
+                    elements.plan.innerHTML = `<i class="fas fa-leaf"></i> Free`;
+                    elements.customKeyLocked.style.display = 'block';
+                    elements.customKeyUnlocked.style.display = 'none';
+                }
+            } else {
+                throw new Error(data.message || 'Sesi tidak valid');
+            }
+        } catch (error) {
+            console.error(error);
+            localStorage.removeItem('apiKey');
+            window.location.href = '/user/login';
+        }
+    };
+
+    elements.copyButton.addEventListener('click', () => {
+        elements.apiKey.select();
+        navigator.clipboard.writeText(elements.apiKey.value).then(() => {
+            elements.copyButton.innerHTML = '<i class="fas fa-check"></i> Tersalin';
+            setTimeout(() => {
+                elements.copyButton.innerHTML = '<i class="far fa-copy"></i> Salin';
+            }, 2000);
+        });
+    });
+    
+    elements.customKeyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        elements.message.textContent = '';
+        elements.message.className = 'message';
+        elements.saveKeyButton.disabled = true;
+        elements.saveKeyButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+        const currentApiKey = localStorage.getItem('apiKey');
+        const newApiKey = elements.newApiKey.value;
+
+        try {
+            const response = await fetch('/auth/update-apikey', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ currentApiKey, newApiKey })
+            });
+            
+            const data = await response.json();
+            if (response.ok) {
+                elements.message.textContent = data.message || 'API Key berhasil diperbarui!';
+                elements.message.classList.add('success');
+                
+                const updatedKey = data.result.apiKey;
+                elements.apiKey.value = updatedKey;
+                localStorage.setItem('apiKey', updatedKey);
+                
+                elements.newApiKey.value = '';
+            } else {
+                throw new Error(data.message || `Gagal: Server merespons dengan status ${response.status}`);
+            }
+        } catch (error) {
+            elements.message.textContent = error.message.includes('Failed to fetch') 
+                ? 'Tidak dapat terhubung ke server.' 
+                : error.message;
+            elements.message.classList.add('error');
+        } finally {
+            elements.saveKeyButton.disabled = false;
+            elements.saveKeyButton.innerHTML = 'Simpan';
+        }
+    });
+
+    elements.logoutButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('apiKey');
+        window.location.href = '/docs';
+    });
+
+    fetchUserData();
+});
+
+function copyCode(button) {
+    const code = document.getElementById('curl-code').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      button.textContent = 'Tersalin!';
+      setTimeout(() => {
+        button.textContent = 'Salin';
+      }, 2000);
+    });
+}
+</script>
+</body>
+</html>

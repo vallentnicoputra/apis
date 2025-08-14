@@ -1,0 +1,89 @@
+const axios = require("axios");
+const cheerio = require("cheerio");
+const { checkApiKeyAndLimit } = require("../../middleware");
+
+class PornhubScraper {
+  constructor() {
+    this.proxyBaseUrl = "http://localhost:3000/tools/ex?url=&format=text&textOnly=false&ignoreLinks=false&apikey=maslent123";
+    this.baseUrl = "https://www.pornhub.com";
+    this.headers = {
+      "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36"
+    };
+  }
+
+  async search({ query }) {
+    try {
+      const searchUrl = `${this.baseUrl}/video/search?search=${encodeURIComponent(query)}`;
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(searchUrl)}`);
+      const { data: html } = await axios.get(proxyUrl, { headers: this.headers });
+      const $ = cheerio.load(html);
+
+      const videos = $("li[data-video-segment]").map((i, el) => {
+        const $el = $(el);
+        const link = $el.find(".title a").attr("href")?.trim();
+        const title = $el.find(".title a").text().trim();
+        const uploader = $el.find(".videoUploaderBlock a").text().trim();
+        const views = $el.find(".views").text().trim();
+        const duration = $el.find(".duration").text().trim();
+        return link?.includes("viewkey") ? {
+          url: this.baseUrl + link,
+          title,
+          uploader,
+          views,
+          duration
+        } : null;
+      }).get().filter(Boolean);
+
+      return videos;
+    } catch (err) {
+      console.error("Pornhub Search Error:", err.message);
+      return [];
+    }
+  }
+
+  async detail({ url }) {
+    try {
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(url)}`);
+      const { data: html } = await axios.get(proxyUrl, { headers: this.headers });
+
+      // Extract flashvars JSON
+      const startPattern = /var flashvars_\d{1,} = /;
+      const startIndex = html.search(startPattern);
+      if (startIndex === -1) return {};
+      const endIndex = html.indexOf(";\n", startIndex);
+      const jsonString = html.substring(html.indexOf("{", startIndex), endIndex);
+      const metaPayload = JSON.parse(jsonString);
+
+      return metaPayload || {};
+    } catch (err) {
+      console.error("Pornhub Detail Error:", err.message);
+      return {};
+    }
+  }
+}
+
+module.exports = (app) => {
+  const scraper = new PornhubScraper();
+
+  app.get("/nsfw/pornhub/search", checkApiKeyAndLimit, async (req, res) => {
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ status: false, message: "Parameter 'q' wajib diisi" });
+    try {
+      const data = await scraper.search({ query: q });
+      res.json({ status: true, total: data.length, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+
+  app.get("/nsfw/pornhub/detail", checkApiKeyAndLimit, async (req, res) => {
+    const { url } = req.query;
+    if (!url) return res.status(400).json({ status: false, message: "Parameter 'url' wajib diisi" });
+    try {
+      const data = await scraper.detail({ url });
+      res.json({ status: true, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+};

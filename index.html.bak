@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maslent API Services</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* ===== Palet Warna (Sesuai Dasbor) ===== */
+      --transition-fast: all 0.2s ease-in-out;
+      --transition-medium: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --border-radius-sm: 12px;
+      --border-radius-md: 20px;
+      --border-radius-lg: 24px;
+
+      /* Tema Terang */
+      --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(225, 234, 250) 0%, rgb(250, 245, 245) 90.1%);
+      --light-text-primary: #1a202c;
+      --light-text-secondary: #4a5568;
+      --light-glass-bg: rgba(255, 255, 255, 0.6);
+      --light-glass-border: rgba(255, 255, 255, 0.9);
+      --light-shadow: 0 8px 32px 0 rgba(131, 138, 157, 0.2);
+      --light-primary-accent: #4f46e5;
+      --light-primary-accent-light: #e0e7ff;
+    }
+
+    /* ===== Gaya Umum ===== */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg-gradient);
+      color: var(--light-text-primary);
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* ===== Animasi ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ===== Bagian Hero ===== */
+    .hero-section {
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+    .hero-section h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      color: var(--light-text-primary);
+      margin-bottom: 1rem;
+    }
+    .hero-section h1 .highlight {
+      color: var(--light-primary-accent);
+    }
+    .hero-section p {
+      font-size: 1.15rem;
+      color: var(--light-text-secondary);
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+    }
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: var(--border-radius-sm);
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+      background: var(--light-primary-accent);
+      color: white;
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--light-primary-accent);
+      border: 1px solid #e2e8f0;
+    }
+    
+    /* ===== Dasar Glassmorphism ===== */
+    .glassmorphic {
+      background: var(--light-glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--light-glass-border);
+      box-shadow: var(--light-shadow);
+      transition: var(--transition-medium);
+      border-radius: var(--border-radius-md);
+    }
+
+    /* ===== Bagian Statistik ===== */
+    .stats-section {
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .stat-item i {
+      font-size: 1.5rem;
+      color: var(--light-primary-accent);
+      background: var(--light-primary-accent-light);
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--border-radius-sm);
+    }
+    .stat-item .info .value {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--light-text-primary);
+    }
+    .stat-item .info .label {
+      font-size: 0.85rem;
+      color: var(--light-text-secondary);
+    }
+    
+    /* ===== Bagian Fitur/Keunggulan ===== */
+    .features-section {
+        padding: 3rem 0;
+    }
+    .section-title {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+    .section-title h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    .section-title p {
+        color: var(--light-text-secondary);
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    .feature-card {
+        padding: 2rem;
+        text-align: center;
+    }
+    .feature-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--light-primary-accent);
+    }
+    .feature-card h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+        color: var(--light-text-secondary);
+        font-size: 0.95rem;
+    }
+    
+    /* ===== Footer ===== */
+    .main-footer {
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 2rem;
+        border-top: 1px solid #e2e8f0;
+        color: var(--light-text-secondary);
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 1.5rem; }
+      .hero-section { padding: 2rem 0.5rem; }
+      .hero-section h1 { font-size: 2.5rem; }
+      .hero-section p { font-size: 1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+        .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Hero Section -->
+  <section class="hero-section fade-in">
+    <h1>Solusi API Cepat & Andal untuk <span class="highlight">Proyek Anda</span></h1>
+    <p>Akselerasikan pengembangan bot WhatsApp dan aplikasi Anda dengan REST API yang stabil, mudah diintegrasikan, dan selalu terbarui.</p>
+    <div class="action-buttons">
+      <a href="/user/login.html" class="btn btn-primary">
+        <i class="fas fa-book-open"></i> Lihat Dokumentasi
+      </a>
+      <a href="https://wa.me/6288297793616" class="btn btn-secondary">
+        <i class="fab fa-whatsapp"></i> Hubungi Kami
+      </a>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section glassmorphic fade-in delay-1">
+    <div class="stats-grid">
+      <div id="total-endpoint" class="stat-item">
+        <i class="fas fa-sitemap"></i>
+        <div class="info">
+          <div class="value">Loading...</div>
+          <div class="label">Total Endpoint</div>
+        </div>
+      </div>
+      <div id="total-request" class="stat-item">
+        <i class="fas fa-chart-line"></i>
+        <div class="info">
+          <div class="value">Loading...</div>
+          <div class="label">Total Request</div>
+        </div>
+      </div>
+      <div id="clock" class="stat-item">
+        <i class="far fa-clock"></i>
+        <div class="info">
+          <div class="value">Loading...</div>
+          <div class="label">Waktu Server</div>
+        </div>
+      </div>
+      <div id="battery" class="stat-item">
+        <i class="fas fa-server"></i>
+        <div class="info">
+          <div class="value">Loading...</div>
+          <div class="label">Status Server</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section fade-in delay-2">
+    <div class="section-title">
+        <h2>Mengapa Memilih API Kami?</h2>
+        <p>Kami menyediakan infrastruktur yang kuat dan fitur lengkap untuk mendukung kebutuhan pengembangan Anda.</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card glassmorphic">
+            <i class="fas fa-bolt"></i>
+            <h3>Performa Tinggi</h3>
+            <p>Dibangun di atas infrastruktur modern untuk memastikan latensi rendah dan respons yang cepat.</p>
+        </div>
+        <div class="feature-card glassmorphic">
+            <i class="fas fa-shield-halved"></i>
+            <h3>Keamanan Terjamin</h3>
+            <p>Implementasi keamanan berlapis untuk melindungi setiap permintaan data yang Anda lakukan.</p>
+        </div>
+        <div class="feature-card glassmorphic">
+            <i class="fas fa-code-branch"></i>
+            <h3>Integrasi Mudah</h3>
+            <p>Dokumentasi yang jelas dan endpoint yang intuitif membuat proses integrasi menjadi mudah.</p>
+        </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer fade-in delay-3">
+    <p>&copy; 2024 Maslent API Services. All Rights Reserved.</p>
+  </footer>
+
+</div>
+
+<!-- JavaScript -->
+<script>
+  // Fungsi untuk update status
+  function updateStat(selector, value, label) {
+    const element = document.querySelector(selector);
+    if (element) {
+      const valueEl = element.querySelector('.value');
+      const labelEl = element.querySelector('.label');
+      if (valueEl) valueEl.textContent = value;
+      if (labelEl && label) labelEl.textContent = label;
+    }
+  }
+
+  // Status Baterai (diubah menjadi status server)
+  navigator.getBattery().then(battery => {
+    function updateBatteryStatus() {
+        const status = battery.charging ? 'Charging' : 'Optimal';
+        const value = `${Math.round(battery.level * 100)}% (${status})`;
+        updateStat('#battery', value, 'Status Server');
+    }
+    updateBatteryStatus();
+    battery.addEventListener('levelchange', updateBatteryStatus);
+    battery.addEventListener('chargingchange', updateBatteryStatus);
+  }).catch(err => {
+      updateStat('#battery', 'Online', 'Status Server');
+  });
+
+  // Jam Real-time
+  function updateTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    updateStat('#clock', `${hours}:${minutes}:${seconds}`);
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+
+  // Fetch Status dari API
+  fetch('/api/status')
+    .then(res => res.json())
+    .then(data => {
+      updateStat('#total-endpoint', data.result.totalfitur);
+      updateStat('#total-request', data.result.totalrequest);
+    })
+    .catch(err => {
+      updateStat('#total-endpoint', 'Error');
+      updateStat('#total-request', 'Error');
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>

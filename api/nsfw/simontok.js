@@ -1,0 +1,108 @@
+const axios = require("axios");
+const cheerio = require("cheerio");
+const { checkApiKeyAndLimit } = require("../../middleware");
+
+class SimontokScraper {
+  constructor() {
+    // Proxy format wajib
+    this.proxyBaseUrl = "https://maslent.site/tools/ex?url=&format=text&textOnly=false&ignoreLinks=false&apikey=maslent123";
+    this.baseSearchUrl = "https://id.simontokx.org/?id=";
+    this.baseResultUrl = "https://id.simontokx.org";
+    this.headers = {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+    };
+  }
+
+  async search({ query }) {
+    try {
+      const targetUrl = this.baseSearchUrl + encodeURIComponent(query);
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(targetUrl)}`);
+      const { data: html } = await axios.get(proxyUrl, { headers: this.headers });
+      const $ = cheerio.load(html);
+
+      return {
+        updateInfo: $('div[style*="background-color:black"]').find("p").text() || "No update info",
+        alternativeAddress: $('div[style*="background-color:black"]').next().text() || "No alternative address",
+        videos: $(".thumb-block").map((_, el) => ({
+          title: $(el).find("p a").attr("title") || "No title",
+          link: this.baseResultUrl + ($(el).find("p a").attr("href") || "#"),
+          imgSrc: $(el).find("img").attr("data-src") || "",
+          duration: $(el).find(".duration").text() || "No duration"
+        })).get()
+      };
+    } catch (error) {
+      console.error("Simontok Search Error:", error.message);
+      return null;
+    }
+  }
+
+  async detail({ url }) {
+    try {
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(url)}`);
+      const { data: html } = await axios.get(proxyUrl, { headers: this.headers });
+      const $ = cheerio.load(html);
+
+      const downloadLink = $('a[title="Download"]').attr("href") || "#";
+      const vParam = new URL(downloadLink, url).searchParams.get("v");
+      const newDownloadLink = `https://musik-mp3.info/downl0ad.php?v=${encodeURIComponent(vParam)}`;
+      const downloadResponse = await axios.get(newDownloadLink);
+      const videoLinks = this.extractVideoLinks(downloadResponse.data);
+
+      return {
+        author: $('meta[itemprop="author"]').attr("content") || "Unknown",
+        name: $('meta[itemprop="name"]').attr("content") || "No name",
+        description: $('meta[itemprop="description"]').attr("content") || "No description",
+        thumbnailUrl: $('meta[itemprop="thumbnailUrl"]').attr("content") || "",
+        videoSrc: $("iframe.iframe-placeholder").attr("src") || "",
+        downloadLink: newDownloadLink,
+        videoLinks
+      };
+    } catch (error) {
+      console.error("Simontok Detail Error:", error.message);
+      return null;
+    }
+  }
+
+  extractVideoLinks(html) {
+    const $ = cheerio.load(html);
+    const links = [];
+    $("script").each((_, script) => {
+      const scriptContent = $(script).html();
+      if (scriptContent) {
+        const $temp = cheerio.load(scriptContent);
+        $temp("a").each((_, a) => {
+          const href = $temp(a).attr("href");
+          const title = $temp(a).attr("title") || "No title";
+          if (href) links.push({ href, title });
+        });
+      }
+    });
+    return links;
+  }
+}
+
+module.exports = (app) => {
+  const scraper = new SimontokScraper();
+
+  app.get("/nsfw/simontok/search", checkApiKeyAndLimit, async (req, res) => {
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ status: false, message: "Parameter 'q' wajib diisi" });
+    try {
+      const data = await scraper.search({ query: q });
+      res.json({ status: true, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+
+  app.get("/nsfw/simontok/detail", checkApiKeyAndLimit, async (req, res) => {
+    const { url } = req.query;
+    if (!url) return res.status(400).json({ status: false, message: "Parameter 'url' wajib diisi" });
+    try {
+      const data = await scraper.detail({ url });
+      res.json({ status: true, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+};

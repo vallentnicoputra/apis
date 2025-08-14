@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Akses Ditolak</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(225, 234, 250) 0%, rgb(250, 245, 245) 90.1%);
+      --light-text-primary: #1a202c;
+      --light-primary-accent: #4f46e5;
+      --border-radius-sm: 12px;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg-gradient);
+      color: var(--light-text-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--light-primary-accent);
+      margin: 0;
+    }
+    p {
+      font-size: 1.2rem;
+      margin: 1rem 0 2rem 0;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .btn-back {
+      background: var(--light-primary-accent);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--border-radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Oops!</h1>
+    <p>Sepertinya Anda mencoba mengakses halaman yang dilindungi. Silakan login terlebih dahulu.</p>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz3YBd8gmTig3lPH-8N4Cll7fbh8PQnv4E3sp4fMMGdtPmEq9sTZogUGw&s=10" alt="Ngapain tolol login dlu kwkw">
+    <a href="/user/login" class="btn-back">Kembali ke Halaman Login</a>
+  </div>
+</body>
+</html>

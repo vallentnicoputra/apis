@@ -1,0 +1,96 @@
+const axios = require("axios");
+const cheerio = require("cheerio");
+const { checkApiKeyAndLimit } = require("../../middleware");
+
+class TeamSkeetScraper {
+  constructor() {
+    this.proxyBaseUrl = "https://maslent.site/tools/ex?url=&format=text&textOnly=false&ignoreLinks=false&apikey=maslent123";
+    this.baseUrl = "https://www.teamskeet.com";
+    this.headers = {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+    };
+  }
+
+  async search({ query = "Milf" }) {
+    try {
+      const searchUrl = `${this.baseUrl}/search?filter=${encodeURIComponent(query)}`;
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(searchUrl)}`);
+      const { data } = await axios.get(proxyUrl, { headers: this.headers });
+      const $ = cheerio.load(data);
+
+      const scriptContent = $("script").toArray().map(el => $(el).html()).find(c => c && c.includes("searchResults"));
+      if (!scriptContent) return [];
+
+      const parsed = this.parseJSON(scriptContent);
+      const resultPage = parsed?.searchResults?.items?.pages?.[0] || [];
+      return resultPage.map(item => ({
+        ...item,
+        video: `https://videodelivery.net/${item.videoSrc}/manifest/video.m3u8`,
+        link: `https://tours-store.psmcdn.net/ts-elastic-alias-videoscontent/_doc/${item.id}`
+      }));
+    } catch (err) {
+      console.error("TeamSkeet Search Error:", err.message);
+      return [];
+    }
+  }
+
+  async detail({ url }) {
+    try {
+      const proxyUrl = this.proxyBaseUrl.replace("url=", `url=${encodeURIComponent(url)}`);
+      const { data } = await axios.get(proxyUrl, { headers: this.headers });
+      const $ = cheerio.load(data);
+
+      const scriptContent = $("script").toArray().map(el => $(el).html()).find(c => c && c.includes("videosContent"));
+      if (!scriptContent) return [];
+
+      const parsed = this.parseJSON(scriptContent);
+      const items = parsed?.videosContent || [];
+      return items.map(item => ({
+        ...item,
+        video: `https://videodelivery.net/${item.videoSrc}/manifest/video.m3u8`,
+        link: `https://tours-store.psmcdn.net/ts-elastic-alias-videoscontent/_doc/${item.id}`
+      }));
+    } catch (err) {
+      console.error("TeamSkeet Detail Error:", err.message);
+      return [];
+    }
+  }
+
+  parseJSON(input) {
+    const startIndex = input.indexOf("{");
+    const endIndex = input.lastIndexOf("}");
+    if (startIndex === -1 || endIndex <= startIndex) return null;
+    try {
+      return JSON.parse(input.slice(startIndex, endIndex + 1));
+    } catch {
+      console.error("Error parsing JSON");
+      return null;
+    }
+  }
+}
+
+module.exports = (app) => {
+  const scraper = new TeamSkeetScraper();
+
+  app.get("/nsfw/teamskeet/search", checkApiKeyAndLimit, async (req, res) => {
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ status: false, message: "Parameter 'q' wajib diisi" });
+    try {
+      const data = await scraper.search({ query: q });
+      res.json({ status: true, total: data.length, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+
+  app.get("/nsfw/teamskeet/detail", checkApiKeyAndLimit, async (req, res) => {
+    const { url } = req.query;
+    if (!url) return res.status(400).json({ status: false, message: "Parameter 'url' wajib diisi" });
+    try {
+      const data = await scraper.detail({ url });
+      res.json({ status: true, data });
+    } catch (err) {
+      res.status(500).json({ status: false, message: err.message });
+    }
+  });
+};

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=800">
+<link id="icon" rel="icon" href="/favicon.png" type="image/png">
+  <title id="page">API Docs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    :root { --sidebar-width: 260px; --transition-fast: all 0.2s ease-in-out; --transition-medium: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); --border-radius-sm: 12px; --border-radius-md: 20px; --border-radius-lg: 24px; --light-bg: #f4f7fc; --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(225, 234, 250) 0%, rgb(250, 245, 245) 90.1%); --light-text-primary: #1a202c; --light-text-secondary: #4a5568; --light-glass-bg: rgba(255, 255, 255, 0.6); --light-glass-border: rgba(255, 255, 255, 0.9); --light-shadow: 0 8px 32px 0 rgba(131, 138, 157, 0.2); --light-primary-accent: #4f46e5; --light-primary-accent-light: #eef2ff; --premium-gold: #f59e0b; --dark-bg: #1a202c; --dark-bg-gradient: radial-gradient(circle at 10% 20%, rgb(35, 37, 46) 0%, rgb(25, 28, 38) 90.1%); --dark-text-primary: #e2e8f0; --dark-text-secondary: #a0aec0; --dark-glass-bg: rgba(45, 55, 72, 0.5); --dark-glass-border: rgba(255, 255, 255, 0.1); --dark-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--light-bg-gradient); color: var(--light-text-primary); min-height: 100vh; line-height: 1.6; transition: background 0.3s ease, color 0.3s ease; }
+    #loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--light-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s; }
+    .loader { width: 50px; height: 50px; border: 5px solid var(--light-primary-accent-light); border-top-color: var(--light-primary-accent); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    body.dark-theme { background: var(--dark-bg-gradient); color: var(--dark-text-primary); }
+    .glassmorphic { background: var(--light-glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--light-glass-border); box-shadow: var(--light-shadow); transition: var(--transition-medium); }
+    body.dark-theme .glassmorphic { background: var(--dark-glass-bg); border: 1px solid var(--dark-glass-border); box-shadow: var(--dark-shadow); }
+    .dashboard-layout { display: flex; }
+    #sidebar { width: var(--sidebar-width); height: 100vh; position: fixed; top: 0; left: 0; padding: 1.5rem; display: flex; flex-direction: column; z-index: 100; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); border-radius: 0; border-right: 1px solid var(--light-glass-border); }
+    #sidebar.open { transform: translateX(0); }
+    body.dark-theme #sidebar { border-right: 1px solid var(--dark-glass-border); }
+    .sidebar-header { margin-bottom: 1.5rem; text-align: center; }
+    .sidebar-header h2 { font-size: 1.6rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--light-primary-accent); }
+    body.dark-theme .sidebar-header h2 { color: var(--dark-primary-accent); }
+    nav { flex-grow: 1; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    nav::-webkit-scrollbar { display: none; }
+    #api-categories { list-style: none; }
+    .nav-link { display: flex; align-items: center; padding: 0.9rem 1.2rem; margin-bottom: 0.8rem; text-decoration: none; color: var(--light-text-secondary); font-weight: 500; gap: 1rem; font-size: 0.95rem; border-radius: var(--border-radius-sm); transition: var(--transition-fast); }
+    .nav-link:hover { background: var(--light-primary-accent-light); color: var(--light-primary-accent); }
+    .nav-link.active { background: var(--light-primary-accent); color: white; font-weight: 600; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+    .nav-link i { width: 20px; text-align: center; font-size: 1.1rem; }
+    body.dark-theme .nav-link { color: var(--dark-text-secondary); }
+    body.dark-theme .nav-link:hover { background: var(--dark-primary-accent-light); color: var(--dark-primary-accent); }
+    body.dark-theme .nav-link.active { background: var(--dark-primary-accent); color: var(--dark-text-primary); box-shadow: 0 4px 12px rgba(129, 140, 248, 0.2); }
+    .sidebar-profile { margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--light-glass-border); text-align: center; flex-shrink: 0; }
+    body.dark-theme .sidebar-profile { border-top-color: var(--dark-glass-border); }
+    .profile-avatar { width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 1rem auto; object-fit: cover; background-color: var(--light-primary-accent-light); border: 2px solid var(--light-primary-accent); }
+    .profile-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem; }
+    .profile-email { font-size: 0.8rem; color: var(--light-text-secondary); margin-bottom: 1.5rem; word-break: break-all; }
+    .profile-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .btn-profile, .btn-logout-sidebar { text-decoration: none; padding: 0.6rem; border-radius: var(--border-radius-sm); font-weight: 500; font-size: 0.85rem; transition: var(--transition-fast); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .btn-profile { background-color: var(--light-primary-accent); color: white; }
+    .btn-profile:hover { background-color: #4338ca; }
+    .btn-logout-sidebar { background-color: var(--light-primary-accent-light); color: var(--light-primary-accent); }
+    .btn-logout-sidebar:hover { background-color: #e0e7ff; }
+    body.dark-theme .btn-profile { background-color: var(--dark-primary-accent); color: var(--dark-text-primary); }
+    body.dark-theme .btn-logout-sidebar { background-color: var(--dark-primary-accent-light); color: var(--dark-primary-accent); }
+    #main-content { flex-grow: 1; margin-left: var(--sidebar-width); padding: 2rem; transition: margin-left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+    #main-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; margin-bottom: 2rem; border-radius: var(--border-radius-md); }
+    #menu-toggle, #themeToggle { display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; background: transparent; border: none; color: var(--light-text-secondary); width: 45px; height: 45px; border-radius: 50%; transition: var(--transition-fast); }
+    #menu-toggle { display: none; }
+    .search-container { flex-grow: 1; margin: 0 1.5rem; }
+    #searchInput { width: 100%; max-width: 450px; padding: 0.8rem 1.5rem; border: none; font-size: 1rem; border-radius: var(--border-radius-sm); background: var(--light-primary-accent-light); }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+    .stats-card { padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem; border-radius: var(--border-radius-md); }
+    .stats-card .icon { font-size: 2.2rem; padding: 1rem; display: flex; align-items: center; justify-content: center; color: var(--light-primary-accent); background: var(--light-primary-accent-light); border-radius: var(--border-radius-sm); }
+    .stats-card h3 { font-size: 1rem; font-weight: 500; color: var(--light-text-secondary); }
+    .stats-card p { font-size: 2rem; font-weight: 700; }
+    .api-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .api-card { border-radius: var(--border-radius-md); display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; padding: 1.5rem; opacity: 0; transform: translateY(20px); animation: cardEntrance 0.5s ease-out forwards; }
+    @keyframes cardEntrance { to { opacity: 1; transform: translateY(0); } }
+    .play-button { align-self: flex-end; border: none; padding: 10px 20px; color: white; background: var(--light-primary-accent); cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 8px; border-radius: var(--border-radius-sm); }
+    .premium-badge { background-color: #fef3c7; color: #92400e; padding: 0.2rem 0.6rem; font-size: 0.75rem; font-weight: 600; border-radius: 99px; margin-left: 0.5rem; }
+    .premium-badge .fa-crown { color: var(--premium-gold); }
+    
+    /* --- CSS MODAL (POP-UP) --- */
+    .modal { position: fixed; top: 0; left: 0; z-index: 1051; width: 100vw; height: 100vh; background: rgba(20, 20, 30, 0.3); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 1rem; opacity: 0; transition: opacity 0.3s ease; }
+    .modal.active { display: flex; opacity: 1; }
+    .modal-dialog { width: 100%; max-width: 600px; padding: 2rem; border-radius: var(--border-radius-lg); transform: scale(0.95); transition: transform 0.3s ease; }
+    .modal.active .modal-dialog { transform: scale(1); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--light-glass-border); }
+    body.dark-theme .modal-dialog { background: var(--dark-glass-bg); border: 1px solid var(--dark-glass-border); }
+    body.dark-theme .modal-header { border-bottom: 1px solid var(--dark-glass-border); }
+    .modal-header h5 { font-size: 1.4rem; font-weight: 700; margin: 0; }
+    .btn-close { background: var(--light-primary-accent-light); border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; color: var(--light-text-secondary); font-size: 1.2rem; transition: var(--transition-fast); display: grid; place-items: center; }
+    .btn-close:hover { background-color: #e0e7ff; color: var(--light-primary-accent); transform: rotate(90deg); }
+    body.dark-theme .btn-close { background: var(--dark-primary-accent-light); color: var(--dark-text-secondary); }
+    body.dark-theme .btn-close:hover { background-color: rgba(129, 140, 248, 0.3); color: var(--dark-primary-accent); }
+    .modal-body form input { width: 100%; padding: 14px 18px; border: none; margin-bottom: 1rem; font-size: 1rem; font-weight: 500; border-radius: var(--border-radius-sm); background: var(--light-primary-accent-light); }
+    body.dark-theme .modal-body form input { background: var(--dark-primary-accent-light); color: var(--dark-text-primary); }
+    #submitParamBtn { background: var(--light-primary-accent); color: white; border: none; padding: 14px; font-size: 1rem; cursor: pointer; font-weight: 600; width: 100%; margin-top: 0.5rem; border-radius: var(--border-radius-sm); }
+    
+    .modal-section-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--light-text-secondary); }
+    body.dark-theme .modal-section-title { color: var(--dark-text-secondary); }
+    
+    /* --- URL Box Styling (BARU) --- */
+    .url-box { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; border-radius: var(--border-radius-sm); background: var(--light-primary-accent-light); font-family: monospace; font-size: 0.9rem; }
+    body.dark-theme .url-box { background: var(--dark-primary-accent-light); color: var(--dark-text-primary); }
+    .url-box pre { flex-grow: 1; white-space: nowrap; overflow-x: auto; scrollbar-width: thin; }
+    .url-box pre::-webkit-scrollbar { height: 4px; }
+    .url-box pre::-webkit-scrollbar-thumb { background: var(--light-primary-accent); border-radius: 2px; }
+    body.dark-theme .url-box pre::-webkit-scrollbar-thumb { background: var(--dark-primary-accent); }
+    .btn-copy { background: transparent; border: none; cursor: pointer; color: var(--light-text-secondary); font-size: 1rem; margin-left: 1rem; padding: 0.5rem; border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; transition: var(--transition-fast); }
+    .btn-copy:hover { background: rgba(0,0,0,0.05); color: var(--light-primary-accent); }
+    body.dark-theme .btn-copy { color: var(--dark-text-secondary); }
+    body.dark-theme .btn-copy:hover { background: rgba(255,255,255,0.1); color: var(--dark-primary-accent); }
+
+    .modal-code-block { padding: 1rem; margin-top: 0; border-radius: var(--border-radius-sm); background: var(--light-primary-accent-light); font-family: monospace; white-space: pre-wrap; word-wrap: break-word; font-size: 0.9rem; }
+    body.dark-theme .modal-code-block { background: var(--dark-primary-accent-light); color: var(--dark-text-primary); }
+    #resultApiResponseContent { max-height: 300px; overflow-y: auto; }
+    
+    .loading-spinner { margin: 2rem auto; border: 4px solid var(--light-primary-accent-light); border-top: 4px solid var(--light-primary-accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+    @media (max-width: 992px) { #sidebar { transform: translateX(calc(-1 * var(--sidebar-width))); } #main-content { margin-left: 0; } #menu-toggle { display: flex; } }
+  </style>
+</head>
+<body>
+  <div id="loading-screen"><div class="loader"></div></div>
+  <div class="dashboard-layout">
+    <aside id="sidebar" class="glassmorphic">
+      <div class="sidebar-header">
+        <h2 id="apiTitle"><i class="fas fa-rocket"></i><span>API Docs</span></h2>
+      </div>
+      <nav><ul id="api-categories"></ul></nav>
+      <div class="sidebar-profile">
+        <img id="profileAvatar" src="https://placehold.co/60x60/e0e7ff/4f46e5?text=U" alt="Avatar" class="profile-avatar">
+        <h4 id="profileName" class="profile-name">Memuat...</h4>
+        <span id="profileEmail" class="profile-email">Memuat...</span>
+        <div class="profile-buttons">
+          <a href="/user/profil" class="btn-profile"><i class="fas fa-user-edit"></i> Profil</a>
+          <a href="#" id="logoutButton" class="btn-logout-sidebar"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+        </div>
+      </div>
+    </aside>
+
+    <main id="main-content">
+      <header id="main-header" class="glassmorphic">
+        <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+        <div class="search-container"><input type="text" id="searchInput" placeholder="Cari API..." /></div>
+        <button id="themeToggle" aria-label="Toggle Dark Mode"><svg id="themeIcon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg></button>
+      </header>
+      <section class="stats" id="status-boxes">
+        <div class="stats-card glassmorphic"><div class="icon"><i class="fas fa-sitemap"></i></div><div><h3>Total Endpoint</h3><p id="total-endpoint">-</p></div></div>
+        <div class="stats-card glassmorphic"><div class="icon"><i class="fas fa-users"></i></div><div><h3>Total User</h3><p id="total-users">-</p></div></div>
+        <div class="stats-card glassmorphic"><div class="icon"><i class="fas fa-bolt"></i></div><div><h3>Sisa Limit</h3><p id="limit-count">-</p></div></div>
+      </section>
+      <section class="content">
+        <h2 id="category-title" style="margin-bottom: 1.5rem; font-weight: 700; font-size: 1.8rem;"></h2>
+        <div id="api-list" class="api-list"></div>
+      </section>
+    </main>
+  </div>
+  
+  <!-- MODAL 1: UNTUK INPUT PARAMETER -->
+  <div class="modal" id="paramInputModal">
+    <div class="modal-dialog glassmorphic">
+      <div class="modal-header">
+        <div><h5 id="modal-title"></h5><span id="modal-desc"></span></div>
+        <button id="btn-close-params" class="btn-close"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form id="paramForm" style="margin-bottom: 0.5rem"></form>
+        <button id="submitParamBtn" type="button">Jalankan Permintaan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: UNTUK MENAMPILKAN HASIL API (DIPERBARUI) -->
+  <div class="modal" id="resultModal">
+      <div class="modal-dialog glassmorphic">
+          <div class="modal-header">
+              <h5 class="modal-title">Hasil Permintaan</h5>
+              <button id="btn-close-result" class="btn-close"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="modal-body">
+              <!-- Base URL Box -->
+              <div style="margin-bottom: 1rem;">
+                  <h6 class="modal-section-title">Base URL</h6>
+                  <div class="url-box">
+                      <pre id="baseUrlText"></pre>
+                      <button class="btn-copy" id="copyBaseUrlBtn" title="Salin Base URL"><i class="far fa-copy"></i></button>
+                  </div>
+              </div>
+
+              <!-- Endpoint URL Box -->
+              <div style="margin-bottom: 1.5rem;">
+                  <h6 class="modal-section-title">Endpoint URL</h6>
+                  <div class="url-box">
+                      <pre id="fullUrlText"></pre>
+                      <button class="btn-copy" id="copyFullUrlBtn" title="Salin Endpoint URL"><i class="far fa-copy"></i></button>
+                  </div>
+              </div>
+              
+              <div id="resultApiResponseLoading" class="loading-spinner" style="display: none;"></div>
+              
+              <!-- Response Box -->
+              <div id="resultApiResponseCard" style="display: none;">
+                  <h6 class="modal-section-title">Respons</h6>
+                  <div id="resultApiResponseContent" class="modal-code-block"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  <!-- MODAL UNTUK UPGRADE -->
+  <div class="modal" id="upgradeModal">
+    <div class="modal-dialog glassmorphic" style="max-width: 450px; text-align: center;">
+      <div class="modal-header" style="border-bottom: none; padding-bottom: 0;">
+        <h5 style="width: 100%; text-align: center;">Fitur Khusus VIP</h5>
+        <button id="btn-close-upgrade" class="btn-close"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body" style="padding-top: 0;">
+          <i class="fas fa-crown" style="font-size: 4rem; color: var(--premium-gold); margin: 1rem 0;"></i>
+          <p style="font-size: 1.1rem; color: var(--light-text-secondary); margin-bottom: 1.5rem;">
+              Maaf, fitur ini hanya tersedia untuk pengguna <strong>Basic</strong> dan <strong>Premium</strong>.
+          </p>
+          <a href="/user/profil" class="btn-profile" style="width: 100%; padding: 14px; font-size: 1rem; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.75rem;">
+              <i class="fas fa-rocket"></i> Upgrade Sekarang
+          </a>
+      </div>
+    </div>
+  </div>
+
+<script>
+let allAPIs = {};
+let currentEndpoint = "";
+let currentUserPlan = 'free'; // Default, akan di-update
+
+// --- FUNGSI UTAMA UNTUK MEMUAT SEMUA DATA AWAL ---
+async function loadInitialData() {
+    const apiKey = localStorage.getItem('apiKey');
+    if (!apiKey) {
+        window.location.href = '/user/login';
+        return;
+    }
+
+    try {
+        const [userDataRes, apiDataRes, statusDataRes] = await Promise.all([
+            fetch(`/auth/me?apikey=${apiKey}`),
+            fetch("/api/endpoints.json"),
+            fetch("/api/status")
+        ]);
+
+        const userData = await userDataRes.json();
+        if (userData.status) {
+            const user = userData.result;
+            currentUserPlan = user.plan; 
+            document.getElementById('profileName').textContent = user.username;
+            document.getElementById('profileEmail').textContent = user.email;
+            document.getElementById('profileAvatar').onerror = () => {
+                document.getElementById('profileAvatar').src = `https://placehold.co/60x60/e0e7ff/4f46e5?text=${user.username.charAt(0).toUpperCase()}`;
+            };
+            document.getElementById('profileAvatar').src = `https://picasaweb.google.com/data/entry/api/user/${user.email}?alt=json`;
+            document.getElementById('limit-count').textContent = user.plan === 'premium' ? '∞' : user.limit;
+        } else {
+            throw new Error("Sesi tidak valid, mengalihkan ke login.");
+        }
+
+        if (!apiDataRes.ok) throw new Error("Gagal memuat daftar API.");
+        allAPIs = await apiDataRes.json();
+        setupNavigation();
+
+        const statusData = await statusDataRes.json();
+        if (statusData.status) {
+            document.getElementById('total-endpoint').textContent = statusData.result.totalEndpoints;
+            document.getElementById('total-users').textContent = statusData.result.totalUsers;
+        }
+
+    } catch (error) {
+        console.error("GAGAL MEMUAT DATA:", error);
+        if (error.message.includes("Sesi tidak valid")) {
+            localStorage.removeItem('apiKey');
+            window.location.href = '/user/login';
+        } else {
+            document.getElementById("api-list").innerHTML = `<p style="color: red; font-weight: bold;">Could not load API data.</p>`;
+        }
+    }
+}
+
+// --- FUNGSI UNTUK MEMBUAT NAVIGASI ---
+function setupNavigation() {
+    const categoriesContainer = document.getElementById("api-categories");
+    categoriesContainer.innerHTML = '';
+    const categoryIcons = { openai: 'fa-brain', orderkuota: 'fa-wallet', downloader: 'fa-cloud-arrow-down', random: 'fa-shuffle', search: 'fa-magnifying-glass', tools: 'fa-screwdriver-wrench', stalker: 'fa-user-secret', creator: 'fa-wand-magic-sparkles', berita: 'fa-newspaper', game: 'fa-gamepad', api: 'fa-server', default: 'fa-shapes' };
+    Object.keys(allAPIs).forEach((key, index) => {
+        const iconClass = categoryIcons[key.toLowerCase()] || categoryIcons.default;
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#" class="nav-link ${index === 0 ? 'active' : ''}" data-category="${key}"><i class="fas ${iconClass}"></i><span>${key.charAt(0).toUpperCase() + key.slice(1)}</span></a>`;
+        categoriesContainer.appendChild(li);
+    });
+    const firstCategory = Object.keys(allAPIs)[0];
+    if (firstCategory) renderAPIs(firstCategory);
+}
+
+// --- FUNGSI UNTUK MENAMPILKAN KARTU API ---
+function renderAPIs(category, filter = '') {
+    const apiList = document.getElementById("api-list");
+    const categoryTitle = document.getElementById("category-title");
+    apiList.innerHTML = "";
+    categoryTitle.textContent = filter ? `Hasil Pencarian untuk "${filter}"` : category.charAt(0).toUpperCase() + category.slice(1);
+    
+    let itemsToRender = [];
+    if (filter) {
+        itemsToRender = Object.values(allAPIs).flat().filter(api => 
+            api.name.toLowerCase().includes(filter.toLowerCase())
+        );
+    } else {
+        itemsToRender = allAPIs[category] || [];
+    }
+
+    if (itemsToRender.length > 0) {
+        itemsToRender.forEach((api, i) => createApiCard(api, i, apiList));
+    } else {
+        apiList.innerHTML = "<p>Tidak ada API yang ditemukan.</p>";
+    }
+}
+
+function createApiCard(api, index, container) {
+    const card = document.createElement("div");
+    card.className = "api-card glassmorphic";
+    card.style.animationDelay = `${index * 0.05}s`;
+    const premiumBadge = api.premium ? '<span class="premium-badge"><i class="fas fa-crown"></i> VIP</span>' : '';
+    card.innerHTML = `
+      <div class="api-info">
+        <h3>${api.name} ${premiumBadge}</h3>
+        <p>${api.desc || ''}</p>
+      </div>
+      <button class="play-button" 
+        data-endpoint="${api.path}" 
+        data-api-name="${api.name}" 
+        data-api-desc="${api.desc || ''}"
+        data-premium="${api.premium || false}">
+        <i class="fa-solid fa-paper-plane"></i> Coba API
+      </button>
+    `;
+    container.appendChild(card);
+}
+
+// --- FUNGSI UNTUK MODAL & FETCH API ---
+
+// Membuka modal untuk input parameter
+function openParamInputModal(endpoint, apiName, apiDesc) {
+    currentEndpoint = endpoint;
+    const modal = document.getElementById("paramInputModal");
+    const paramForm = document.getElementById("paramForm");
+    
+    document.getElementById("modal-title").innerText = apiName;
+    document.getElementById("modal-desc").innerText = apiDesc;
+    paramForm.innerHTML = '';
+    
+    if (endpoint.includes("?")) {
+        endpoint.split("?")[1].split("&").forEach(param => {
+            const [key] = param.split("=");
+            if (key) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = key;
+                input.placeholder = `Masukkan ${key}...`;
+                if (key === 'apikey') input.value = localStorage.getItem('apiKey') || '';
+                input.required = true;
+                paramForm.appendChild(input);
+            }
+        });
+        document.getElementById('submitParamBtn').style.display = 'block';
+    } else {
+        // Jika tidak ada parameter, langsung jalankan dan tampilkan di modal hasil
+        fetchAndShowResult(endpoint);
+        return; // Hentikan eksekusi agar modal input tidak muncul
+    }
+    
+    modal.classList.add("active");
+}
+
+// Mengambil data dan menampilkan di modal hasil
+function fetchAndShowResult(endpoint) {
+    const resultModal = document.getElementById("resultModal");
+    const responseCard = document.getElementById("resultApiResponseCard");
+    const responseEl = document.getElementById("resultApiResponseContent");
+    const loadingEl = document.getElementById("resultApiResponseLoading");
+    
+    // Ambil elemen URL dari modal hasil (BARU)
+    const baseUrlText = document.getElementById('baseUrlText');
+    const fullUrlText = document.getElementById('fullUrlText');
+
+    // Tampilkan modal hasil
+    resultModal.classList.add("active");
+
+    // Isi Base URL dan Full URL (BARU)
+    try {
+        // Gunakan window.location.origin sebagai fallback jika endpoint adalah path relatif
+        const fullUrl = new URL(endpoint, window.location.origin);
+        baseUrlText.textContent = fullUrl.origin;
+        fullUrlText.textContent = fullUrl.href;
+    } catch (e) {
+        // Handle jika URL tidak valid
+        baseUrlText.textContent = 'N/A';
+        fullUrlText.textContent = endpoint;
+    }
+
+    // Reset tampilan modal hasil
+    loadingEl.style.display = "block";
+    responseCard.style.display = "none";
+    responseEl.innerHTML = '';
+
+    fetch(endpoint)
+      .then(async (res) => {
+        const contentType = res.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          const data = await res.json();
+          responseEl.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } else if (contentType?.startsWith("image/")) {
+          responseEl.innerHTML = `<img src="${endpoint}" style="max-width:100%; border-radius: 8px;" alt="API Response" />`;
+        } else {
+          const text = await res.text();
+          responseEl.innerHTML = `<pre>${text}</pre>`;
+        }
+      })
+      .catch((err) => { responseEl.innerHTML = `<pre>Error: ${err.message}</pre>`; })
+      .finally(() => {
+        loadingEl.style.display = "none";
+        responseCard.style.display = "block";
+      });
+}
+
+
+// --- FUNGSI BARU UNTUK MEMBUKA MODAL UPGRADE ---
+function openUpgradeModal() {
+    const modal = document.getElementById('upgradeModal');
+    if (modal) modal.classList.add('active');
+}
+
+// --- FUNGSI BARU UNTUK MENYALIN TEKS ---
+function copyToClipboard(text, buttonEl) {
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+        const originalIcon = buttonEl.innerHTML;
+        buttonEl.innerHTML = `<i class="fas fa-check" style="color: green;"></i>`;
+        setTimeout(() => {
+            buttonEl.innerHTML = originalIcon;
+        }, 2000);
+    }).catch(err => {
+        console.error('Gagal menyalin teks: ', err);
+        alert('Gagal menyalin teks.');
+    });
+}
+
+// --- FUNGSI UNTUK SEMUA EVENT LISTENER ---
+function setupEventListeners() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+    
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+    });
+    mainContent.addEventListener('click', () => {
+        if (window.innerWidth <= 992) sidebar.classList.remove('open');
+    });
+
+    document.getElementById('api-categories').addEventListener('click', (e) => {
+        const link = e.target.closest('.nav-link');
+        if (link) {
+            e.preventDefault();
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            document.getElementById('searchInput').value = '';
+            renderAPIs(link.dataset.category);
+            if (window.innerWidth <= 992) sidebar.classList.remove('open');
+        }
+    });
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        const query = e.target.value;
+        const activeCategoryLink = document.querySelector(".nav-link.active");
+        renderAPIs(activeCategoryLink ? activeCategoryLink.dataset.category : null, query);
+    });
+    
+    document.getElementById('logoutButton').addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('apiKey');
+        alert('Anda telah keluar.');
+        window.location.href = '/user/login';
+    });
+
+    document.getElementById('api-list').addEventListener('click', (e) => {
+        const playButton = e.target.closest('.play-button');
+        if (playButton) {
+            const isPremium = playButton.dataset.premium === 'true';
+
+            if (isPremium && currentUserPlan === 'free') {
+                openUpgradeModal();
+            } else {
+                openParamInputModal(playButton.dataset.endpoint, playButton.dataset.apiName, playButton.dataset.apiDesc);
+            }
+        }
+    });
+
+    // Event listener untuk modal input parameter
+    const paramModal = document.getElementById('paramInputModal');
+    document.getElementById('btn-close-params').addEventListener('click', () => paramModal.classList.remove('active'));
+    paramModal.addEventListener('click', (e) => { if (e.target === paramModal) paramModal.classList.remove('active'); });
+
+    // Event listener untuk modal hasil
+    const resultModal = document.getElementById('resultModal');
+    document.getElementById('btn-close-result').addEventListener('click', () => resultModal.classList.remove('active'));
+    resultModal.addEventListener('click', (e) => { if (e.target === resultModal) resultModal.classList.remove('active'); });
+
+    // Event listener untuk modal upgrade
+    const upgradeModal = document.getElementById('upgradeModal');
+    document.getElementById('btn-close-upgrade').addEventListener('click', () => upgradeModal.classList.remove('active'));
+    upgradeModal.addEventListener('click', (e) => { if (e.target === upgradeModal) upgradeModal.classList.remove('active'); });
+
+
+    document.getElementById('submitParamBtn').addEventListener('click', () => {
+        const paramForm = document.getElementById('paramForm');
+        if (!paramForm.checkValidity()) {
+            paramForm.reportValidity();
+            return;
+        }
+        
+        document.getElementById('paramInputModal').classList.remove('active');
+
+        let endpoint = currentEndpoint.split("?")[0] + "?";
+        const inputs = Array.from(paramForm.querySelectorAll("input"));
+        endpoint += inputs.map(input => `${input.name}=${encodeURIComponent(input.value)}`).join('&');
+        
+        fetchAndShowResult(endpoint);
+    });
+
+    // --- EVENT LISTENER UNTUK TOMBOL SALIN (BARU) ---
+    document.getElementById('copyBaseUrlBtn').addEventListener('click', (e) => {
+        const textToCopy = document.getElementById('baseUrlText').textContent;
+        copyToClipboard(textToCopy, e.currentTarget);
+    });
+
+    document.getElementById('copyFullUrlBtn').addEventListener('click', (e) => {
+        const textToCopy = document.getElementById('fullUrlText').textContent;
+        copyToClipboard(textToCopy, e.currentTarget);
+    });
+}
+
+// --- INISIALISASI SAAT HALAMAN DIMUAT ---
+document.addEventListener('DOMContentLoaded', async function() {
+  const loadingScreen = document.getElementById('loading-screen');
+  await loadInitialData();
+  loadingScreen.style.opacity = '0';
+  loadingScreen.style.visibility = 'hidden';
+  setupEventListeners();
+  // Inisialisasi tema
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const sunIcon = `<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>`;
+    const moonIcon = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>`;
+
+    function setTheme(isDark) {
+        document.body.classList.toggle('dark-theme', isDark);
+        themeIcon.innerHTML = isDark ? sunIcon : moonIcon;
+        localStorage.setItem('darkTheme', isDark);
+    }
+
+    themeToggle.addEventListener('click', () => {
+        setTheme(!document.body.classList.contains('dark-theme'));
+    });
+
+    const savedTheme = localStorage.getItem('darkTheme') === 'true';
+    setTheme(savedTheme);
+});
+</script>
+</body>
+</html>

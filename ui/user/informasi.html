@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Informasi & Changelog - Maslent API Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light-bg-gradient: radial-gradient(circle at 10% 20%, rgb(225, 234, 250) 0%, rgb(250, 245, 245) 90.1%);
+      --light-text-primary: #1a202c;
+      --light-text-secondary: #4a5568;
+      --light-glass-bg: rgba(255, 255, 255, 0.7);
+      --light-glass-border: rgba(255, 255, 255, 0.9);
+      --light-shadow: 0 8px 32px 0 rgba(131, 138, 157, 0.2);
+      --light-primary-accent: #4f46e5;
+      --light-primary-accent-light: #eef2ff;
+      --border-radius-md: 20px;
+      --border-radius-sm: 12px;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg-gradient);
+      color: var(--light-text-primary);
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.7;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--light-primary-accent);
+    }
+    .header p {
+      font-size: 1.1rem;
+      color: var(--light-text-secondary);
+    }
+    .card {
+      background: var(--light-glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--light-glass-border);
+      box-shadow: var(--light-shadow);
+      border-radius: var(--border-radius-md);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 0.5s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card h2 {
+      font-size: 1.8rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .changelog-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .changelog-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .changelog-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .changelog-version {
+      background-color: var(--light-primary-accent);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .changelog-date {
+      color: var(--light-text-secondary);
+      font-size: 0.9rem;
+    }
+    .changelog-body ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .changelog-body li {
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+    .changelog-body li::before {
+      content: '✓';
+      color: #22c55e;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+    .code-box {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: var(--border-radius-sm);
+      font-family: 'Courier New', Courier, monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      position: relative;
+    }
+    .btn-copy {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #334155;
+      color: #94a3b8;
+      border: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .info-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .info-box img {
+        max-width: 100%;
+        width: 400px;
+        height: auto;
+        border-radius: var(--border-radius-sm);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .info-box p {
+        background-color: var(--light-primary-accent-light);
+        padding: 1rem;
+        border-radius: var(--border-radius-sm);
+        border-left: 4px solid var(--light-primary-accent);
+        color: var(--light-text-secondary);
+        font-weight: 500;
+    }
+    .btn-back {
+        display: inline-block;
+        margin-top: 2rem;
+        background: var(--light-primary-accent);
+        color: white;
+        padding: 0.8rem 1.8rem;
+        border-radius: var(--border-radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>Informasi & Changelog</h1>
+        <p>Pembaruan terbaru dan panduan penggunaan API.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2><i class="fas fa-history"></i> Changelog</h2>
+      <div class="changelog-item">
+        <div class="changelog-header">
+          <span class="changelog-version">v1.2.0</span>
+          <span class="changelog-date">10 Agustus 2025</span>
+        </div>
+        <div class="changelog-body">
+          <ul>
+            <li>Penambahan sistem login dan API Key berbasis pengguna.</li>
+            <li>Implementasi limit untuk pengguna free dan premium.</li>
+            <li>Reset limit otomatis setiap hari pukul 00:00 WITA.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="changelog-item">
+        <div class="changelog-header">
+          <span class="changelog-version">v1.1.0</span>
+          <span class="changelog-date">1 Agustus 2025</span>
+        </div>
+        <div class="changelog-body">
+          <ul>
+            <li>Penambahan 10+ fitur baru di kategori Downloader.</li>
+            <li>Optimalisasi kecepatan respons untuk endpoint AI.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><i class="fas fa-code"></i> Cara Menggunakan API (cURL)</h2>
+      <p style="margin-bottom: 1.5rem;">Gunakan format berikut untuk memanggil API kami melalui terminal atau aplikasi lain menggunakan cURL. Ganti `[path]` dengan endpoint yang Anda tuju dan `[API_KEY_ANDA]` dengan API Key Anda.</p>
+      <div class="code-box">
+        <button class="btn-copy" onclick="copyCode(this)">Salin</button>
+        <code id="curl-code">curl -X GET "https://Maslent.site/[path]&apikey=[API_KEY_ANDA]"</code>
+      </div>
+    </section>
+    
+    <section class="card">
+        <h2><i class="fas fa-info-circle"></i> Informasi Penting</h2>
+        <div class="info-box">
+            <img src="https://i.ibb.co.com/4g8H1KZS/20250810-113316.png" alt="Contoh Respons Kosong">
+            <p><b>Pemberitahuan:</b> Jika Anda melihat kotak respons kosong seperti pada gambar di atas setelah menekan "Jalankan Permintaan", itu **bukanlah error**. Server sedang dalam proses mengonversi hasil menjadi gambar (base64). Mohon tunggu beberapa saat hingga hasilnya muncul.</p>
+        </div>
+    </section>
+
+    <div style="text-align: center;">
+        <a href="/docs" class="btn-back">Kembali ke Docs</a>
+    </div>
+  </div>
+
+<script>
+  function copyCode(button) {
+    const code = document.getElementById('curl-code').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      button.textContent = 'Tersalin!';
+      setTimeout(() => {
+        button.textContent = 'Salin';
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

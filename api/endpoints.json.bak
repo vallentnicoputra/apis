@@ -1,0 +1,1651 @@
+{
+  "AI Tools": [
+    {
+      "name": "Gemini - Chat",
+      "desc": "Gemini AI adalah model AI dari Google DeepMind yang mampu memahami bahasa, membuat teks, menganalisis data dengan integrasi ke layanan Google",
+      "status": "Active",
+      "path": "/ai/gemini?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Chatgpt 3.5 - Chat",
+      "desc": "ChatGPT 3.5, Merupakan sebuah Model Chatgpt Yang di sediakan Free",
+      "status": "Active",
+      "path": "/ai/chatgpt3.5?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Chatgpt 4 - Chat",
+      "desc": "ChatGPT4 Sebuah model yang lebih cerdas yang fokus membuat model bahasa canggih untuk memahami, menjawab, dan menghasilkan teks",
+      "status": "Active",
+      "path": "/ai/chatgpt4?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "Blackbox",
+      "desc": "Blackbox adalah platform AI yang berfokus pada pengembangan kode, membantu programmer menyelesaikan tugas coding secara otomatis dan cerdas.",
+      "status": "Active",
+      "path": "/ai/blackbox?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Copilot",
+      "desc": "Copilot adalah AI assistant Microsoft untuk programmer yang membantu menulis dan menyarankan kode secara real-time di editor..",
+      "status": "Active",
+      "path": "/ai/copilot?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "DeepSeek",
+      "desc": "DeepSeek merupakan AI assistant yang fokus pada pemrograman dan pemahaman teks, dikembangkan dengan model LLM berbasis open-source..",
+      "status": "Active",
+      "path": "/ai/deepseek?text=&apikey=",
+      "premium": false
+    },       
+    {
+      "name": "Groq",
+      "desc": "Groq adalah platform AI ultra-cepat yang menjalankan model open-source seperti LLaMA 3 di atas chip khusus bernama GroqChip, menghasilkan respons real-time dengan latensi sangat rendah.",
+      "status": "Active",
+      "path": "/ai/groq?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Meta - Chat",
+      "desc": "Meta AI adalah divisi kecerdasan buatan dari perusahaan Meta (dulu Facebook) yang mengembangkan model AI open-source seperti LLaMA (Large Language Model Meta AI) dan teknologi AI lainnya untuk riset",
+      "status": "Active",
+      "path": "/ai/meta?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Simi - Simi",
+      "desc": "Simi Simi merupakan Chat Bot yang bisa diajak curhat dan lucu dan ngeselin",
+      "status": "Active",
+      "path": "/ai/simi?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Ai Background repleacer",
+      "desc": "Ubah latar belakang gambar secara realistis dengan berbagai tempat ikonik di Indonesia tanpa mengubah subjek sama sekali. Cocok untuk membuat foto seolah-olah diambil di tempat wisata terkenal seperti Bali, Borobudur, Raja Ampat, Tanah Toraja, dan lainnya",
+      "status": "Active",
+      "path": "/ai/Ai-Background-repleacer?url=&wilayah=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Anime To Realistic",
+      "desc": "Pernah liat waifu lu hidup di dunia nyata? Belum? Nih gue bantuin Ubah karakter anime favorit jadi versi manusia asli yang super realistis — dari rambut, mata, ekspresi, sampai outfit",
+      "status": "Active",
+      "path": "/ai/AnimeToRealistic?url=&apikey=",
+      "premium": true
+    },  
+    {
+  "name": "Clothes Tradisional",
+  "desc": "Merubah pakaian pada gambar menjadi baju adat Indonesia. Tersedia style: Jawa, Bugis, Dayak. Kirim url gambar dan baju (opsional, default Dayak) untuk mendapatkan hasil gambar baru dengan pakaian adat pilihan.",
+  "status": "Active",
+  "path": "/ai/clothes-traditional?url=$&baju=&apikey=",
+  "premium": true
+    },
+    {
+  "name": "Black Skin",
+  "desc": "Merubah Wajah Anda menjadi Hitam Legam Cocok untuk menjadikan stiker foto teman anda",
+  "status": "Active",
+  "path": "/ai/blackskin?url=&apikey=",
+  "premium": false
+    },
+    {
+  "name": "Formal Background",
+  "desc": "Merubah Background menjadi background formal Pas foto Terdapat beberapa style yaitu : Merah, Biru, Hijau, Kuning, Putih",
+  "status": "Active",
+   "path": "/ai/formal-background?url=&warna=&apikey=",
+  "premium": false
+    },                       
+    {
+  "name": "Skin Eyes",
+  "desc": "Mengubah warna mata pada gambar yang Anda berikan. Style tersedia: Merah, Biru, Coklat, Hijau, Ungu, Hitam, Abu-abu, Emas, Sharingan, Byakugan.",
+  "status": "Active",
+  "path": "/ai/skin-eyes?url=&warna=&apikey=",
+  "premium": false
+     },                   
+     {
+  "name": "Chinematic Lightning",
+  "desc": "Buat foto kamu terlihat seperti adegan film Hollywood! AI akan menambahkan pencahayaan sinematik: rim light, backlight, soft diffused glow, dengan tone hangat atau gelap dramatis",
+  "status": "Active",
+  "path": "/ai/chinematic-lightning?url=&apikey=",
+  "premium": false
+     },
+     {
+  "name": "colorize",
+  "desc": "Merubah foto Atau gambar hitam putih menjadi bewarna",
+  "status": "Active",
+  "path": "/ai/colorize?url=&apikey=",
+  "premium": false
+     },                
+     {
+  "name": "Face Expression",
+  "desc": "Merubah ekspresi wajah menjadi senyum, serius, marah, kaget, tertawa, serius",
+  "status": "Active",
+  "path": "/ai/face-expression?url=&ekspresi=&apikey=",
+  "premium": true
+     },
+     {
+  "name": "Night To Day",
+  "desc": "Merubah gambar atau foto malam hari menjadi siang hari",
+  "status": "Active",
+  "path": "/ai/night-to-day?url=&apikey=",
+  "premium": false
+     },                         
+     {
+  "name": "Photo Restore",
+  "desc": "Memperbaiki foto Jaman Dulu yang sudah rusak, kabur, berjamur",
+  "status": "Active",
+  "path": "/ai/photo-restore?url=&apikey=",
+  "premium": false
+     },                   
+     {
+  "name": "Cartoonizer",
+  "desc": "Merubah foto atau gambar menjadi cartoon",
+  "status": "Active",
+  "path": "/ai/cartoonizer?url=&apikey=",
+  "premium": false
+     },                       
+     {
+  "name": "Naruto Style",
+  "desc": "Merubah Foto Atau gambar anda menyerupai Naruto Realistic Seperti di anime",
+  "status": "Active",
+  "path": "/ai/naruto-style?url=&apikey=",
+  "premium": false
+     },                  
+     {
+  "name": "Studio Art",
+  "desc": "Merubah Foto Atau gambar anda dengan AI StudioART Beberapa style yang tersedia yaitu :ghibli, pixar, lego, barbie, crayon_shinchan",
+  "status": "Active",
+  "path": "/ai/studioart?url=&style=&apikey=",
+  "premium": false
+     },                  
+     {
+  "name": "Mefusion",
+  "desc": "Ubah wajah atau tubuh kamu dengan berbagai gaya artistik AI yang realistis dan kreatif. Style yang tersedia: hijab, anime, pixar, cyberpunk, lukisan_renaissance, barbie_doll, kartun_barat, sketsa_pensil, piksel_8bit, elf_fantasi.",
+  "status": "Active",
+  "path": "/ai/mefusion?url=&style=&apikey=",
+  "premium": false
+     },         
+     {
+  "name": "Remini",
+  "desc": "Menjernihkan Sebuah Gambar Atau foto",
+  "status": "Active",
+  "path": "/ai/remini?url=&apikey=",
+  "premium": false
+     },
+     {
+  "name": "Remini Super HD",
+  "desc": "Menjernihkan Sebuah Gambar Atau foto",
+  "status": "Active",
+  "path": "/ai/reminisuperhd?url=&apikey=",
+  "premium": false
+     },     
+     {
+  "name": "Chat Gpt Jailbreak",
+  "desc": "Chat gpt Uncensored Yang sudah di jailbreak sehingga lulus semua sensor yang di larang oleh sistem dan Terdapat Prompt Jailbreak",
+  "status": "Active",
+  "path": "/ai/chatgptjailbreak?text=&apikey=",
+  "premium": true
+     }     
+  ],
+  "text2image": [
+    {
+      "name": "3dCartoon",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/3dcartoon?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Animated Characters",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/animated?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "ART Character",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/art?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "ART Face",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/artface?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Bizzart",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/bizzart?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Black Anime",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/blackanime?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "ART Charisma",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/artcharisma?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Claymation",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/claymation?text=&apikey=",
+      "premium": false
+    },            
+    {
+      "name": "Digital",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/digital?text=&apikey=",
+      "premium": false
+    },                      
+    {
+      "name": "Fantasy",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/fantasy?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "FamilyGuy",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/familyguy?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Film Photograph",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/film?text=&apikey=",
+      "premium": false
+    },                 
+    {
+      "name": "Flat Vector",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/flatvector?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "Girl Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/girlgenerator?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "Lo-Fi Wallpaper",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/lofiwallpaper?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Lo-Fi Dreams",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/lofidreams?text=&apikey=",
+      "premium": false
+    },                    
+    {
+      "name": "Luna Brush",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/lunabrush?text=&apikey=",
+      "premium": false
+    },                    
+    {
+      "name": "Minimal Draw",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/minimaldraw?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Model Spilt Photo",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/modelsplit?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Old Cartoon",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/oldcartoon?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Photo Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/photogenerator?text=&apikey=",
+      "premium": true
+    },        
+    {
+      "name": "Pixel Art Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/pixelart?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "Pixel Pop",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/pixelpop?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Scary Drawing",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/scarydrawing?text=&apikey=",
+      "premium": false
+    },                    
+    {
+      "name": "Simple Line Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/simpleline?text=&apikey=",
+      "premium": false
+    }, 
+    {
+      "name": "Vintage Films",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/vintagefilm?text=&apikey=",
+      "premium": false
+    },           
+    {
+      "name": "Wood Carving Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/woodcarving?text=&apikey=",
+      "premium": false
+    },               
+    {
+      "name": "Youtube Thumbnail Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/youtubethumbnail?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "Aurora Forge Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/auroraforge?text=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Flux",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/flux?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Gen Image Watercolor",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/genimagewatercolor?text=&apikey=",
+      "premium": false
+    },       
+    {
+      "name": "Gen Image",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/genimage?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "imagine",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/imagine?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Photo Art Generator",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/photoartgenerator?text=&apikey=",
+      "premium": false
+    },            
+    {
+      "name": "Ghibli",
+      "desc": "Input Prompt",
+      "status": "Active",
+      "path": "/text2image/ghibli?text=&apikey=",
+      "premium": false
+    }                                                        
+  ],
+  "download": [  
+    {
+      "name": "Capcut",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/capcut?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Douyin",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/douyin?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Facebook",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/facebook?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Pinterest",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/pinterest?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Sfile",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/sfile?text=&apikey=",
+      "premium": false
+    },   
+    {
+      "name": "Shoope",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/shoope?text=&apikey=",
+      "premium": false
+    },         
+    {
+      "name": "Thereads",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/thereads?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Tiktok No WM",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/tiktok?text=&apikey=",
+      "premium": false
+    },                         
+    {
+      "name": "Videy",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/videy?text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "xnxx",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/xnxx?text=&apikey=",
+      "premium": true
+    },
+    {
+      "name": "xvideos",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/xvideos?text=&apikey=",
+      "premium": true
+    }, 
+    {
+      "name": "youtube",
+      "desc": "Please Input Url",
+      "status": "Active",
+      "path": "/download/youtube?text=&apikey=",
+      "premium": false
+    }
+  ],
+  "canvas": [
+    {
+      "name": "Filter Blue",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterblue?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Blue Purple",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterblurple?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Pixelate",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterpixelate?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Blur",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterblur?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Blupler2",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterblurple2?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Brightness",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterbrightness?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter magenta",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filtermagentax?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Green",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filtergreen?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter GreyScale",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filtergreyscale?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Invert",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterinvert?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Filter Red",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/filterred?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Bisexsual",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/bisexsual?url=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Circle",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/circle?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Heart",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/heart?url=&apikey=",
+      "premium": false
+    },      
+    {
+      "name": "Horny",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/horny?url=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Its So Stupid",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/its-so-stupid?url=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Lesbian",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/lesbian?url=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Lgbt",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/lgbt?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Lied",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/lied?url=&apikey=",
+      "premium": false
+    },        
+    {
+      "name": "Lolice",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/lolice?url=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Non Binary",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/nonbinary?url=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Pansexsual",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/pansexsual?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "SimCard",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/simcard?url=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Tonikawa",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/tonikawa?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "transgender",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/transgender?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "oogwe",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+      "path": "/canvas/oogwe?url=&text=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Card Name",
+      "desc": "Input Url Image JPG/PNG",
+      "status": "Active",
+       "path": "/canvas/cardname?username=&birthday=&avatar=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Welcome Card & Leave Card V1",
+      "desc": "Type :\njoin ( welcome)\nleave ( leave/goodbye )\n\nColor :\nwhite ( putih )\nred ( merah )\netc.",
+      "status": "Active",
+       "path": "/canvas/welcomev1?type=&textcolor=&username=&guildName=&memberCount=&avatar=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Welcome Card & Leave Card V2",
+      "desc": "Type :\njoin ( welcome)\nleave ( leave/goodbye )\n\nColor :\nwhite ( putih )\nred ( merah )\netc.",
+      "status": "Active",
+       "path": "/canvas/welcomev2?type=&textcolor=&username=&guildName=&memberCount=&avatar=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Welcome Card & Leave Card V3",
+      "desc": "Type :\njoin ( welcome)\nleave ( leave/goodbye )\n\nColor :\nwhite ( putih )\nred ( merah )\netc.",
+      "status": "Active",
+       "path": "/canvas/welcomev3?type=&textcolor=&username=&guildName=&memberCount=&avatar=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Welcome Card & Leave Card V4",
+      "desc": "Type :\njoin ( welcome)\nleave ( leave/goodbye )\n\nColor :\nwhite ( putih )\nred ( merah )\netc.",
+      "status": "Active",
+       "path": "/canvas/welcomev4?type=&textcolor=&username=&guildName=&memberCount=&avatar=&apikey=",
+      "premium": false
+    },   
+    {
+      "name": "Welcome Card & Leave Card V5",
+      "desc": "Type :\njoin ( welcome)\nleave ( leave/goodbye )\n\nColor :\nwhite ( putih )\nred ( merah )\netc.",
+      "status": "Active",
+       "path": "/canvas/welcomev5?type=&textcolor=&username=&guildName=&memberCount=&avatar=&apikey=",
+      "premium": false
+    },    
+    {
+      "name": "Welcome Card & Leave Card V6",
+      "desc": "Type :\njoin ( welcome)\nleave ( leave/goodbye )\n\nColor :\nwhite ( putih )\nred ( merah )\netc.",
+      "status": "Active",
+       "path": "/canvas/welcomev6?type=&textcolor=&username=&guildName=&memberCount=&avatar=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Welcome Card & Leave Card V7",
+      "desc": "Type :\njoin ( welcome)\nleave ( leave/goodbye )\n\nColor :\nwhite ( putih )\nred ( merah )\netc.",
+      "status": "Active",
+       "path": "/canvas/welcomev7?type=&textcolor=&username=&guildName=&memberCount=&avatar=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Brat",
+      "desc": "Default : (fontSize=80) (blur=3)",
+      "status": "Active",
+       "path": "/canvas/brat?text=halo&fontSize=80&blur=3&apikey=",
+      "premium": false
+    },
+    {
+      "name": "KTP Maker",
+      "desc": "Model : 1 Type : V5",
+      "status": "Active",
+      "path": "/canvas/ktp?photo=&provinsi=&kabupaten=&nik=&nama=&ttl=&gender=&darah=&alamat=&rt=&desa=&kecamatan=&agama=&status=&pekerjaan=&kewarganegaraan=&berlaku=&dibuat=&terbuat=&sign=&model=1&type=v5&apikey=",
+      "premium": false
+    }, 
+    {
+      "name": "Carbon",
+      "desc": "Theme: dracula type: v5",
+      "status": "Active",
+      "path": "/canvas/carbon?code=&theme=dracula&title=&type=v5&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Quotes Maker",
+      "desc": "Template Index 1-99",
+      "status": "Active",
+      "path": "/canvas/quotes?author=&message=&templateIndex=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "QR Code Generator",
+      "desc": "Fg 23ff0000 same with bg : 23ffffff",
+      "status": "Active",
+      "path": "/canvas/qrcode?data=&fg=&bg=&apikey=",
+      "premium": false
+    }
+   ],
+  "Tools": [  
+    {
+      "name": "HTML2IMG",
+      "desc": "Input Code",
+      "status": "Active",
+      "path": "/tools/html2img?html=&width=&height=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Hosting Checker",
+      "desc": "Input domain example Maslent.site",
+      "status": "Active",
+      "path": "/tools/hostingcek?domain=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Cek Resi",
+      "desc": "Input Resi & Ekspedisi",
+      "status": "Active",
+      "path": "/tools/cekresi?nomor=&expedisi=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Run Code Compliment",
+      "desc": "Imput code",
+      "status": "Active",
+      "path": "/tools/runcode?lang=&code=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "Hitung Jarak",
+      "desc": "Imput Asal & tujuan",
+      "status": "Active",
+      "path": "/tools/jarak?from=&to=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "NSFW Checker",
+      "desc": "Input Url Image Nsfw for chek",
+      "status": "Active",
+      "path": "/tools/nsfwcek?url=&apikey=",
+      "premium": false
+    },
+    {
+      "name": "OCR",
+      "desc": "Input Url Image",
+      "status": "Active",
+      "path": "/tools/ocr?url=&apikey=",
+      "premium": false
+    },
+      {
+      "name": "Remove Background",
+      "desc": "Input URL gambar untuk hapus background",
+      "status": "Active",
+      "path": "/tools/removebg?url=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Remini",
+      "desc": "Input URL gambar untuk Upscale Image",
+      "status": "Active",
+      "path": "/tools/remini?url=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Whisper Transkip",
+      "desc": "Input Url Audio",
+      "status": "Active",
+      "path": "/tools/transcribe?url=&apikey=",
+      "premium": true
+      },
+      {
+      "name": "Text In Video Gen",
+      "desc": "Input text",
+      "status": "Active",
+      "path": "/tools/videotext?link=&text1=&text2=&apikey=",
+      "premium": true
+      },
+      {
+      "name": "SSWEB",
+      "desc": "Input Url Website",
+      "status": "Active",
+      "path": "/tools/ssweb?url=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Google Lens",
+      "desc": "Input Url Image",
+      "status": "Active",
+      "path": "/tools/googlelens?imgUrl=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Deteksi Umur",
+      "desc": "Input Url Image",
+      "status": "Active",
+      "path": "/tools/deteksiumur?imgUrl=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Rextester Compiler Run",
+      "desc": "Input A code & Lang",
+      "status": "Active",
+      "path": "/tools/rextester?lang=&code=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Barcode Reader",
+      "desc": "Input Url Baecode",
+      "status": "Active",
+      "path": "/tools/barcoderead?url=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Email Sender",
+      "desc": "Input Email",
+      "status": "Active",
+      "path": "/tools/emailsender?to=&subject=&text=&apikey=",
+      "premium": true
+      },
+      {
+      "name": "Rekap Artikel",
+      "desc": "Input Website ex : Leght medium-3-paragraphs tone: creative style : creative lang: Indonesian",
+      "status": "Active",
+      "path": "/tools/rekapartikel?url=&length=medium-3-paragraphs&tone=creative&style=creative&lang=Indonesian&apikey=",
+      "premium": true
+      },
+      {
+      "name": "Translate",
+      "desc": "Text & Target",
+      "status": "Active",
+      "path": "/tools/translate?text=&source=auto&target=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Informasi Cuaca Terkini",
+      "desc": "This Is Api Live 24/7",
+      "status": "Active",
+      "path": "/tools/infocuaca?q=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "HTML Validator",
+      "desc": "copy Validasi Website",
+      "status": "Active",
+      "path": "/tools/htmlvalidator?url=&apikey=",
+      "premium": false
+      },
+      {
+      "name": "Extract Website",
+      "desc": "Extractor Website : Q : true or false",
+      "status": "Active",
+      "path": "/tools/ex?url=&format=text&textOnly=false&ignoreLinks=false&apikey=",
+      "premium": false
+      }      
+   ],
+   
+"games": [
+  {
+    "name": "Asah Otak",
+    "desc": "Game Asahotak",
+    "status": "Active",
+    "path": "/game/asahotak?apikey=",
+    "premium": false
+  },
+  {
+    "name": "Cak Lontong",
+    "desc": "Cak Lontong",
+    "status": "Active",
+    "path": "/game/caklontong?apikey=",
+    "premium": false
+  },  
+  {
+    "name": "Tebak Emoji",
+    "desc": "Tebak Emoji",
+    "status": "Active",
+    "path": "/game/tebakemoji?apikey=",
+    "premium": false
+  },
+  {
+    "name": "Familly100",
+    "desc": "Familly 100",
+    "status": "Active",
+    "path": "/game/family100?apikey=",
+    "premium": false
+  },
+  {
+    "name": "Lengkapi Kalimat",
+    "desc": "Lengkapi Kalimat",
+    "status": "Active",
+    "path": "/game/lengkapikalimat?apikey=",
+    "premium": false
+  },
+  {
+    "name": "Quiz",
+    "desc": "Quiz",
+    "status": "Active",
+    "path": "/game/quiz?apikey=",
+    "premium": false
+  },
+{
+    "name": "Siapakah Aku",
+    "desc": "Siapakah Aku?",
+    "status": "Active",
+    "path": "/game/siapakahaku?apikey=",
+    "premium": false
+  },
+{
+    "name": "TebakTebakan",
+    "desc": "Tebak Tebakan",
+    "status": "Active",
+    "path": "/game/tebaktebakan?apikey=",
+    "premium": false
+  },
+{
+    "name": "Tebak Anime",
+    "desc": "Tebak Anime",
+    "status": "Active",
+    "path": "/game/tebakanime?apikey=",
+    "premium": false
+  },             
+  {
+    "name": "Tebak Bendera",
+    "desc": "Tebak Bendera",
+    "status": "Active",
+    "path": "/game/tebakbendera?apikey=",
+    "premium": false
+  },
+    {
+    "name": "Tebak Karakter Fiksi",
+    "desc": "Tebak Karakter",
+    "status": "Active",
+    "path": "/game/tebakcharacter?apikey=",
+    "premium": false
+  },
+      {
+    "name": "Tebak Gambar",
+    "desc": "Tebak Gambar",
+    "status": "Active",
+    "path": "/game/tebakgambar?apikey=",
+    "premium": false
+  },
+        {
+    "name": "Tebak hewan",
+    "desc": "Tebak hewan",
+    "status": "Active",
+    "path": "/game/tebakhewan?apikey=",
+    "premium": false
+  },
+          {
+    "name": "Tebak Kata",
+    "desc": "Tebak Kata",
+    "status": "Active",
+    "path": "/game/tebakkata?apikey=",
+    "premium": false
+  },
+  {
+    "name": "Tebak kimia",
+    "desc": "Tebak kimia",
+    "status": "Active",
+    "path": "/game/tebakkimia?apikey=",
+    "premium": false
+  },
+  {
+    "name": "Tebak Aplikasi",
+    "desc": "Tebak Aplikasi",
+    "status": "Active",
+    "path": "/game/tebaklirik?apikey=",
+    "premium": false
+  },
+    {
+    "name": "Tebak Lirik",
+    "desc": "Tebak kimia",
+    "status": "Active",
+    "path": "/game/tebaklirik?apikey=",
+    "premium": false
+  },
+      {
+    "name": "Trivia",
+    "desc": "Input Topic + Lang",
+    "status": "Active",
+    "path": "/game/trivia?topic=&lang=id&apikey=",
+    "premium": false
+  },
+        {
+    "name": "Teka Teki",
+    "desc": "TekaTeki",
+    "status": "Active",
+    "path": "/game/tekateki?&apikey=",
+    "premium": false
+  },
+          {
+    "name": "Tebak Surah",
+    "desc": "Tebak Surah",
+    "status": "Active",
+    "path": "/game/tebaksurah?&apikey=",
+    "premium": false
+  }
+  ],
+"berita": [
+  {
+    "name": "Antara News",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/antaranews?limit=5&apikey=",
+    "premium": false
+  },
+  {
+    "name": "BBC Indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/bbcindonesia?limit=5&apikey=",
+    "premium": false
+  },
+  {
+    "name": "CNN Indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/cnn?limit=5&apikey=",
+    "premium": false
+  },  
+  {
+    "name": "CNBC Indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/cnbcindonesia?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "DAILY NEWS indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/dailynewsindonesia?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "DETIK COM indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/detik?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "FAJAR indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/fajar?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "INDOZONE",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/indozone?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "INEWS",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/inews?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "KOMPAS indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/kompas?limit=5&apikey=",
+    "premium": false
+  },  
+{
+    "name": "KUMPARAN indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/kumparan?limit=5&apikey=",
+    "premium": false
+  },    
+{
+    "name": "Liputan6 indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/liputan6?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "Tribun News Indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/tribun?limit=5&apikey=",
+    "premium": false
+  },
+{
+    "name": "Sindo News Indonesia",
+    "desc": "Limit Max 5",
+    "status": "Active",
+    "path": "/berita/sindo?limit=5&apikey=",
+    "premium": false
+  }    
+  ],
+"nsfw": [
+  {
+    "name": "Random Hentai",
+    "desc": "Random Video hentai Sub Indonesia",
+    "status": "Active",
+    "path": "/nsfw/randomhentai?&apikey=",
+    "premium": true
+  },
+  {
+    "name": "Nsfw Image",
+    "desc": "Random Image hentai HD",
+    "status": "Active",
+    "path": "/nsfw/nsfwhub?type=&apikey=",
+    "premium": true
+  },
+  {
+    "name": "CosXPlay Search",
+    "desc": "input query",
+    "status": "Active",
+    "path": "/nsfw/cosxplay/search?q=&apikey=",
+    "premium": true
+  },
+  {
+    "name": "CosXPlay Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/cosxplay/detail?url=&apikey=",
+    "premium": true
+  },
+  {
+    "name": "Eporner Search",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/eporner/search?q=&apikey=",
+    "premium": true
+  },
+  {
+    "name": "Eporner Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/eporner/detail?url=&apikey=",
+    "premium": true
+  },
+  {
+    "name": "Erome Search",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/erome/search?q=&order=latest&apikey=",
+    "premium": true
+  },  
+  {
+    "name": "Erome Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/erome/detail?url=&apikey=",
+    "premium": true
+  },
+  {
+    "name": "BOKEP INDO Search",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/bokepindo/search?q=&apikey=",
+    "premium": true
+  },
+  {
+    "name": "BOKEP INDO Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/bokepindo/detail?url=&apikey=",
+    "premium": true
+  },
+{
+    "name": "SIMONTOK Search",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/simontok/search?q=&apikey=",
+    "premium": true
+  },
+{
+    "name": "SIMONTOK Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/simontok/detail?url=&apikey=",
+    "premium": true
+  },
+{
+    "name": "TEAMSKET Search",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/simontok/search?q=&apikey=",
+    "premium": true
+  },
+{
+    "name": "TEAMSKET Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/simontok/detail?url=&apikey=",
+    "premium": true
+  },
+{
+    "name": "PORNHUB Search",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/simontok/search?q=&apikey=",
+    "premium": true
+  },
+{
+    "name": "PRONHUB Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/pornhub/detail?url=&apikey=",
+    "premium": true
+  },
+{
+    "name": "XHMASTER Search",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/pornhub/search?q=&apikey=",
+    "premium": true
+  },
+{
+    "name": "XHMASTER Download",
+    "desc": "input url",
+    "status": "Active",
+    "path": "/nsfw/pornhub/detail?url=&apikey=",
+    "premium": true
+  }  
+  ],
+"religion": [
+  {
+    "name": "Surah",
+    "desc": "Masukan Surah",
+    "status": "Active",
+    "path": "/religion/alquran/surah?surah=&apikey=",
+    "premium": false
+  },
+{
+    "name": "Kisah Nabi",
+    "desc": "Masukan Nama Nabi",
+    "status": "Active",
+    "path": "/religion/kisahnabi?text=&apikey=",
+    "premium": false
+  },  
+  {
+    "name": "Ayat",
+    "desc": "Masukan Ayat",
+    "status": "Active",
+    "path": "/religion/alquran/ayat?ayat=&apikey=",
+    "premium": false
+  },
+  {
+    "name": "Hadits",
+    "desc": "Masukan Kitab + halaman",
+    "status": "Active",
+    "path": "/religion/hadits?kitabId=&page=&apikey=",
+    "premium": false
+  },
+  {
+    "name": "Niat Shalat",
+    "desc": "",
+    "status": "Active",
+    "path": "/religion/niatshalat?&apikey=",
+    "premium": false
+  },
+    {
+    "name": "Bacaan Shalat",
+    "desc": "",
+    "status": "Active",
+    "path": "/religion/bacaanshalat?&apikey=",
+    "premium": false
+  },   
+    {
+    "name": "Bacaan Ayat",
+    "desc": "",
+    "status": "Active",
+    "path": "/religion/bacaanayat?&apikey=",
+    "premium": false
+  },
+    {
+    "name": "Alkitab",
+    "desc": "",
+    "status": "Active",
+    "path": "/religion/alkitab?q=&apikey=",
+    "premium": false
+  },
+    {
+    "name": "Motivasi",
+    "desc": "",
+    "status": "Active",
+    "path": "/religion/motivasi?&apikey=",
+    "premium": false
+  },
+    {
+    "name": "Jadwal Shalat",
+    "desc": "",
+    "status": "Active",
+    "path": "/religion/jadwalsholat?kota=&apikey=",
+    "premium": false
+  }                   
+  ],
+"informasi": [
+  {
+    "name": "Plat Nomor",
+    "desc": "Masukan Plat Nomor Ex : KT",
+    "status": "Active",
+    "path": "/informasi/platnomor?kode=&apikey=",
+    "premium": false
+  },
+    {
+    "name": "Tempat Wisata",
+    "desc": "Masukan kota contoh : Samarinda",
+    "status": "Active",
+    "path": "/informasi/wisata?kota=&apikey=",
+    "premium": false
+  },
+      {
+    "name": "Jarak + Konsumsi BBM",
+    "desc": "Masukan From - to",
+    "status": "Active",
+    "path": "/informasi/jarak?from=&to=&apikey=",
+    "premium": false
+  },
+        {
+    "name": "Hari Libur",
+    "desc": "",
+    "status": "Active",
+    "path": "/informasi/harilibur?&apikey=",
+    "premium": false
+  }
+],
+"TextToSpeech": [
+  {
+    "name": "TTS Refrence",
+    "desc": "Masukan Text",
+    "status": "Active",
+    "path": "/tts/syntesisanime?text=&apikey=",
+    "premium": true
+  },
+    {
+    "name": "TTS Indonesia",
+    "desc": "Model : Jokowi, Prabowo, Megawati",
+    "status": "Active",
+    "path": "/tts/ttsindonesia?text=&tokoh=&apikey=",
+    "premium": true
+  },
+      {
+    "name": "TTS Speechify List",
+    "desc": "Input Text",
+    "status": "Active",
+    "path": "/tts/speechify?action=list&apikey=",
+    "premium": true
+  }, 
+    {
+    "name": "TTS Speechify",
+    "desc": "Input Text",
+    "status": "Active",
+    "path": "/tts/speechify?action=create&text=&voice=&apikey=",
+    "premium": true
+  }
+  ],
+  "webzone": [
+  {
+    "name": "Random Gore",
+    "desc": "",
+    "status": "Active",
+    "path": "/webzone/randomgore?&apikey=",
+    "premium": false
+  },
+  {
+    "name": "Covid 19",
+    "desc": "Input Country",
+    "status": "Active",
+    "path": "/webzone/covid19?country=&apikey=",
+    "premium": false
+  }  
+  ],
+"Quotes": [
+  {
+    "name": "Quotes Anime",
+    "desc": "",
+    "status": "Active",
+    "path": "/quotes/quotesanime?&apikey=",
+    "premium": false
+  },
+  {
+    "name": "Quotes Bucin",
+    "desc": "",
+    "status": "Active",
+    "path": "/quotes/quotesbucin?&apikey=",
+    "premium": false
+  },
+{
+    "name": "Quotes Galau",
+    "desc": "",
+    "status": "Active",
+    "path": "/quotes/quotesgalau?&apikey=",
+    "premium": false
+  },
+{
+    "name": "Quotes Developer",
+    "desc": "",
+    "status": "Active",
+    "path": "/quotes/quotesdeveloper?&apikey=",
+    "premium": false
+  },      
+  {
+    "name": "Quotes Bijak",
+    "desc": "",
+    "status": "Active",
+    "path": "/quotes/quotesbijak?&apikey=",
+    "premium": false
+  }      
+  ],
+"Primbon": [
+  {
+    "name": "Nomor Hoki",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/nomorhoki?text=&apikey=",
+    "premium": false
+  },
+{
+    "name": "Arti Mimpi",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/artimimpi?text=&apikey=",
+    "premium": false
+  },
+{
+    "name": "Ramalan Jodoh",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/ramalanjodoh?nama1=&tgl1=&bln1=&thn1=&nama2=&tgl2=&bln2=&thn2=&apikey=",
+    "premium": false
+  },
+{
+    "name": "Primbon suami istri",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/suamiistri?nama1=&tgl1=&bln1=&thn1=&nama2=&tgl2=&bln2=&thn2=&apikey=",
+    "premium": false
+  },
+{
+    "name": "Ramalan Cinta",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/ramalancinta?nama1=&tgl1=&bln1=&thn1=&nama2=&tgl2=&bln2=&thn2=&apikey=",
+    "premium": false
+  },
+{
+    "name": "Arti Nama",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/artinama?text=&apikey=",
+    "premium": false
+  },  
+  {
+    "name": "Kecocokan Nama",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/kecocokannama?nama=&tgl=&bln=&thn=&apikey=",
+    "premium": false
+  },  
+  {
+    "name": "Kecocokan Pasangan",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/kecocokanpasangan?nama1=&nama2=&apikey=",
+    "premium": false
+  },    
+    {
+    "name": "Jadian Pernikahan Pasangan",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/primbon/jadianpernikahan?tgl=&bln=&thn=&apikey=",
+    "premium": false
+  },    
+    {
+    "name": "Sifat Usaha",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/sifatusaha?text=&apikey=",
+    "premium": false
+  },      
+{
+    "name": "Rejeki Hoki",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/rejekihoki?text=&apikey=",
+    "premium": false
+  },        
+  {
+    "name": "Pekerjaan Weton",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/pekerjaan?text=&apikey=",
+    "premium": false
+  },        
+    {
+    "name": "Pekerjaan Weton",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/pekerjaan?text=&apikey=",
+    "premium": false
+  },        
+      {
+    "name": "Ramalan Nasib",
+    "desc": "",
+    "status": "Active",
+    "path": "/primbon/ramalannasib?text=&apikey=",
+    "premium": false
+  },        
+   {
+    "name": "Ramalan potensi Penyakit",
+    "desc": "",
+    "status": "Active",
+    "path": "primbon/potensipenyakit?text=?text=&apikey=",
+    "premium": false
+  },        
+   {
+    "name": "Arti Tarot",
+    "desc": "",
+    "status": "Active",
+    "path": "primbon/tarot?text=?text=&apikey=",
+    "premium": false
+  },          
+   {
+    "name": "Fengsui",
+    "desc": "",
+    "status": "Active",
+    "path": "primbon/fengsui?text=&apikey=",
+    "premium": false
+  },            
+  {
+    "name": "Hari Baik",
+    "desc": "",
+    "status": "Active",
+    "path": "primbon/haribaik?text=&apikey=",
+    "premium": false
+  },            
+    {
+    "name": "Hari Sial",
+    "desc": "",
+    "status": "Active",
+    "path": "primbon/harisial?text=&apikey=",
+    "premium": false
+  }
+  ]  
+}
+
+
+
